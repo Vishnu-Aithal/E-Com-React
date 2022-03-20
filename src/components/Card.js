@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 export const Card = ({
     type = "home-page",
     productData = {
@@ -20,6 +21,7 @@ export const Card = ({
     decreaseQuantity = () => {},
     cartQuantity = 0,
 }) => {
+    const navigate = useNavigate();
     return (
         <div className="card shadow-sm">
             {badge && (
@@ -32,7 +34,7 @@ export const Card = ({
                     <i className="fas fa-times clr-black"></i>
                 </div>
             )}
-            {type === "Wishlist" && (
+            {type === "wishlist" && (
                 <div
                     className="card__dismiss"
                     onClick={() => removeFromWishlist(productData)}>
@@ -81,7 +83,9 @@ export const Card = ({
             {type === "listing" && (
                 <div className="card__cta-wrapper p-2">
                     {inCart ? (
-                        <button className="btn btn--outline-primary w-100p">
+                        <button
+                            className="btn btn--outline-primary w-100p"
+                            onClick={() => navigate("/cart")}>
                             Go to Cart
                         </button>
                     ) : (
@@ -94,7 +98,7 @@ export const Card = ({
                                         Move to Cart
                                     </button>
                                     <button
-                                        className="btn btn--icon clr-red ms-auto"
+                                        className="btn btn--icon clr-red ms-1"
                                         onClick={() =>
                                             removeFromWishlist(productData)
                                         }>
@@ -109,7 +113,7 @@ export const Card = ({
                                         Add to Cart
                                     </button>
                                     <button
-                                        className="btn btn--icon clr-red ms-auto"
+                                        className="btn btn--icon clr-red ms-1"
                                         onClick={() =>
                                             addToWishlist(productData)
                                         }>
@@ -133,7 +137,9 @@ export const Card = ({
             )}
             {type === "home-page" && (
                 <div className="card__cta-wrapper p-2">
-                    <button className="btn btn--secondary w-100p">
+                    <button
+                        className="btn btn--secondary w-100p"
+                        onClick={() => navigate("/products")}>
                         Shop Now
                     </button>
                 </div>
