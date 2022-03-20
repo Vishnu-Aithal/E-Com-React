@@ -1,11 +1,14 @@
 import { Badge } from "./Badge";
+import { NavLink } from "react-router-dom";
 export const TopNav = ({}) => {
+    const activeClass = ({ isActive }) =>
+        isActive ? "nav-bar__liink--active" : "";
     return (
         <nav className="nav-bar bg-primary shadow-sm">
             <div className="nav-bar__header heading-md text-bold clr-white me-2">
-                <a className="nav-bar__link" href="/index.html">
+                <NavLink className="nav-bar__link" to="/">
                     Store
-                </a>
+                </NavLink>
             </div>
             <div className="nav-bar__search-wrapper ms-auto br-4 shadow-xs">
                 <input
@@ -26,20 +29,26 @@ export const TopNav = ({}) => {
                 className="ms-auto nav-bar__list-group clr-white"
                 id="nav-links">
                 <li className="nav-bar__list-item mx-3">
-                    <a href="/pages/wishlist.html" className="nav-bar__link">
+                    <NavLink
+                        to="/wishlist"
+                        className={`nav-bar__link ${activeClass}`}>
                         <i className="far fa-heart"></i>
                         <Badge position="top-right" count="555" />
-                    </a>
+                    </NavLink>
                 </li>
                 <li className="nav-bar__list-item mx-3">
-                    <a href="/pages/cart.html" className="nav-bar__link">
+                    <NavLink
+                        to="/cart"
+                        className={`nav-bar__link ${activeClass}`}>
                         <i className="fas fa-shopping-cart"></i>
-                    </a>
+                    </NavLink>
                 </li>
                 <li className="nav-bar__list-item mx-3">
-                    <a href="/pages/sign-in.html" className="nav-bar__link">
+                    <NavLink
+                        to="/sign-in"
+                        className={`nav-bar__link ${activeClass}`}>
                         Sign In
-                    </a>
+                    </NavLink>
                 </li>
             </ul>
         </nav>
