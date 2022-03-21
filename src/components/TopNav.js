@@ -2,7 +2,7 @@ import { Badge } from "./Badge";
 import { NavLink } from "react-router-dom";
 export const TopNav = ({}) => {
     const activeClass = ({ isActive }) =>
-        isActive ? "nav-bar__liink--active" : "";
+        isActive ? "nav-bar__link nav-bar__link--active" : "nav-bar__link";
     return (
         <nav className="nav-bar bg-primary shadow-sm">
             <div className="nav-bar__header heading-md text-bold clr-white me-2">
@@ -29,24 +29,18 @@ export const TopNav = ({}) => {
                 className="ms-auto nav-bar__list-group clr-white"
                 id="nav-links">
                 <li className="nav-bar__list-item mx-3">
-                    <NavLink
-                        to="/wishlist"
-                        className={`nav-bar__link ${activeClass}`}>
+                    <NavLink to="/wishlist" className={activeClass}>
                         <i className="far fa-heart"></i>
                         <Badge position="top-right" count="555" />
                     </NavLink>
                 </li>
                 <li className="nav-bar__list-item mx-3">
-                    <NavLink
-                        to="/cart"
-                        className={`nav-bar__link ${activeClass}`}>
+                    <NavLink to="/cart" className={activeClass}>
                         <i className="fas fa-shopping-cart"></i>
                     </NavLink>
                 </li>
                 <li className="nav-bar__list-item mx-3">
-                    <NavLink
-                        to="/sign-in"
-                        className={`nav-bar__link ${activeClass}`}>
+                    <NavLink to="/sign-in" className={activeClass}>
                         Sign In
                     </NavLink>
                 </li>
