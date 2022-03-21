@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 export const SignInForm = () => {
     return (
         <form action="" className="p-4 w-fit mx-auto br-2 mt-6">
@@ -54,7 +55,7 @@ export const SignInForm = () => {
             </button>
 
             <p className="helper-text mt-3">
-                Not a member? <a href="/pages/sign-up.html">Sign Up</a>
+                Not a member? <Link to={"/sign-up"}>Sign Up</Link>
             </p>
         </form>
     );
