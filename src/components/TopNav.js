@@ -1,6 +1,8 @@
 import { Badge } from "./Badge";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 export const TopNav = ({}) => {
+    const [collapsed, setCollapsed] = useState(true);
     const activeClass = ({ isActive }) =>
         isActive ? "nav-bar__link nav-bar__link--active" : "nav-bar__link";
     return (
@@ -21,13 +23,16 @@ export const TopNav = ({}) => {
                 </div>
             </div>
             <button
-                className="nav-bar__toggle btn btn--icon-lg clr-white br-2 ms-2"
-                data-toggle="#nav-links">
+                className={`nav-bar__toggle btn btn--icon-lg clr-white br-2 ms-2 ${
+                    collapsed ? "" : "active"
+                }`}
+                onClick={() => setCollapsed((collapsed) => !collapsed)}>
                 <i className="nav-bar__toggle-icon fas fa-bars"></i>
             </button>
             <ul
-                className="ms-auto nav-bar__list-group clr-white"
-                id="nav-links">
+                className={`ms-auto nav-bar__list-group clr-white ${
+                    collapsed ? "" : "show"
+                }`}>
                 <li className="nav-bar__list-item mx-3">
                     <NavLink to="/wishlist" className={activeClass}>
                         <i className="far fa-heart"></i>
