@@ -1,4 +1,3 @@
-import { HomePage } from "./routes/HomePage";
 import { TopNav } from "./components/TopNav";
 import { Outlet } from "react-router-dom";
 import "./index.css";
@@ -6,7 +5,10 @@ import "./index.css";
 function App() {
     return (
         <div className="App">
-            <Outlet />
+            <main>
+                <TopNav />
+                <Outlet />
+            </main>
         </div>
     );
 }
