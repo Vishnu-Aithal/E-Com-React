@@ -1,0 +1,21 @@
+.auth-content {
+    grid-row: 3 / 7;
+    grid-column: 1 / 7;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.input__field {
+    width: 20rem;
+    margin: 0.5rem 0;
+    max-width: 70vw;
+}
+
+.helper-text {
+    display: inline-block;
+    text-align: end;
+    width: 100%;
+    text-decoration: none;
+    font-size: 0.75rem;
+}
