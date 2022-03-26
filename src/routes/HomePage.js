@@ -17,7 +17,7 @@ export const HomePage = () => {
                 console.log(error);
             }
         })();
-    });
+    }, []);
     return (
         <div className="homepage-content">
             <Hero backgroundImage={heroImage} />
