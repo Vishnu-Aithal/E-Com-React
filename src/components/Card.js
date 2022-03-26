@@ -74,7 +74,16 @@ export const Card = ({
                             by {productData.brand}
                         </p>
                         <p className="mt-3, text-bold text-md">
-                            Price: {productData.price}
+                            {productData.outOfStock ? (
+                                <>
+                                    Price: {productData.price}{" "}
+                                    <span className="clr-red">
+                                        Out Of Stock!
+                                    </span>
+                                </>
+                            ) : (
+                                `Price: ${productData.price}`
+                            )}
                         </p>
                     </div>
                 )}
