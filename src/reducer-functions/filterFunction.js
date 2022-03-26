@@ -95,7 +95,7 @@ export const filterReducerFunction = (filterState, { type, payload }) => {
                 ...filterState,
                 filters: { ...filters, rating: payload },
             };
-        case "SET_SHOW_OUT_OF_STOCK":
+        case "SHOW_OUT_OF_STOCK":
             return {
                 ...filterState,
                 filters: {
