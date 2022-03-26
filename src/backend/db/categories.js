@@ -1,4 +1,6 @@
 import { v4 as uuid } from "uuid";
+import casualSetImage from "assets/images/casual-collection.jpg";
+import formalSetImage from "assets/images/formal-collection.jpg";
 
 /**
  * Category Database can be added here.
@@ -6,22 +8,18 @@ import { v4 as uuid } from "uuid";
  * */
 
 export const categories = [
-  {
-    _id: uuid(),
-    categoryName: "fiction",
-    description:
-      "literature in the form of prose, especially novels, that describes imaginary events and people",
-  },
-  {
-    _id: uuid(),
-    categoryName: "non-fiction",
-    description:
-      "Non-fiction is writing that gives information or describes real events, rather than telling a story.",
-  },
-  {
-    _id: uuid(),
-    categoryName: "horror",
-    description:
-      "Meant to cause discomfort and fear for both the character and readers, horror writers often make use of supernatural and paranormal elements in morbid stories that are sometimes a little too realistic.",
-  },
+    {
+        _id: uuid(),
+        categoryName: "Formal Collection",
+        highlight: "New Arrivals!",
+        description: "Check Out the Best Formal collection Now",
+        image: casualSetImage,
+    },
+    {
+        _id: uuid(),
+        categoryName: "Casual Collection",
+        highlight: "New Arrivals!",
+        description: "Check Out the Best Casual collection Now",
+        image: formalSetImage,
+    },
 ];
