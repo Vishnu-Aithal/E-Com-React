@@ -287,6 +287,21 @@ export const FilterOptions = ({}) => {
                     Rating - High to Low
                 </label>
             </div>
+            <div className="filter__category m-2">
+                <h4 className="heading-xs text-bold">Other</h4>
+                <label className="">
+                    <input
+                        type="checkbox"
+                        onChange={() =>
+                            dispatch({
+                                type: "SHOW_OUT_OF_STOCK",
+                            })
+                        }
+                        checked={filters.showOutOfStock}
+                    />{" "}
+                    Show Out Of Stock
+                </label>
+            </div>
         </aside>
     );
 };
