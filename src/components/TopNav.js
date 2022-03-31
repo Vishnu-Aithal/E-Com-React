@@ -1,8 +1,14 @@
 import { Badge } from "./Badge";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "contexts/auth-context";
+import { signOutHandler } from "auth-functions/authHandler";
 export const TopNav = ({}) => {
     const [collapsed, setCollapsed] = useState(true);
+    const {
+        authState: { isLoggedIn },
+        authDispatch,
+    } = useAuth();
     const activeClass = ({ isActive }) =>
         isActive ? "nav-bar__link nav-bar__link--active" : "nav-bar__link";
     return (
@@ -45,9 +51,19 @@ export const TopNav = ({}) => {
                     </NavLink>
                 </li>
                 <li className="nav-bar__list-item mx-3">
-                    <NavLink to="/sign-in" className={activeClass}>
-                        Sign In
-                    </NavLink>
+                    {isLoggedIn ? (
+                        <div
+                            onClick={() => {
+                                signOutHandler();
+                                authDispatch({ type: "LOGOUT" });
+                            }}>
+                            Sign Out
+                        </div>
+                    ) : (
+                        <NavLink to="/sign-in" className={activeClass}>
+                            Sign In
+                        </NavLink>
+                    )}
                 </li>
             </ul>
         </nav>
