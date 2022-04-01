@@ -2,7 +2,7 @@ import { Badge } from "./Badge";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "contexts/auth-context";
-import { signOutHandler } from "auth-functions/authHandler";
+import { signOutHandler } from "utility-functions/authHandler";
 export const TopNav = ({}) => {
     const [collapsed, setCollapsed] = useState(true);
     const {
