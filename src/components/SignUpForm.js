@@ -1,4 +1,4 @@
-import { signUpHandler } from "auth-functions/authHandler";
+import { signUpHandler } from "utility-functions/authHandler";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "contexts/auth-context";
 export const SignUpForm = () => {

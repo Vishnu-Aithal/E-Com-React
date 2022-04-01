@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { signInHandler } from "auth-functions/authHandler";
+import { signInHandler } from "utility-functions/authHandler";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "contexts/auth-context";
 export const SignInForm = () => {
