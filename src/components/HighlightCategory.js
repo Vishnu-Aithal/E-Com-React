@@ -24,7 +24,7 @@ export const HighlightCategory = ({
                 <p className="heading-xs text-bold mt-auto">
                     {categoryData.title}
                 </p>
-                <p className="">{categoryData.description}</p>
+                <p>{categoryData.description}</p>
                 <button
                     onClick={() => navigate("/products")}
                     className="mt-3 btn btn--link btn--secondary text-center">

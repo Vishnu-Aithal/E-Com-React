@@ -54,7 +54,7 @@ export const FilterOptions = ({}) => {
             </div>
             <div className="filter__category m-2">
                 <h4 className="heading-xs text-bold">Category</h4>
-                <label className="">
+                <label>
                     <input
                         type="checkbox"
                         onChange={() =>
@@ -67,7 +67,7 @@ export const FilterOptions = ({}) => {
                     />{" "}
                     Sports
                 </label>
-                <label className="">
+                <label>
                     <input
                         type="checkbox"
                         onChange={() =>
@@ -80,7 +80,7 @@ export const FilterOptions = ({}) => {
                     />{" "}
                     Casual
                 </label>
-                <label className="">
+                <label>
                     <input
                         type="checkbox"
                         onChange={() =>
@@ -96,7 +96,7 @@ export const FilterOptions = ({}) => {
             </div>
             <div className="filter__category m-2">
                 <h4 className="heading-xs text-bold">Brand</h4>
-                <label className="">
+                <label>
                     <input
                         type="checkbox"
                         onChange={() =>
@@ -109,7 +109,7 @@ export const FilterOptions = ({}) => {
                     />{" "}
                     Hike
                 </label>
-                <label className="">
+                <label>
                     <input
                         type="checkbox"
                         onChange={() =>
@@ -122,7 +122,7 @@ export const FilterOptions = ({}) => {
                     />{" "}
                     Adibas
                 </label>
-                <label className="">
+                <label>
                     <input
                         type="checkbox"
                         onChange={() =>
@@ -138,7 +138,7 @@ export const FilterOptions = ({}) => {
             </div>
             <div className="filter__category m-2">
                 <h4 className="heading-xs text-bold">Type</h4>
-                <label className="">
+                <label>
                     <input
                         type="checkbox"
                         onChange={() =>
@@ -151,7 +151,7 @@ export const FilterOptions = ({}) => {
                     />{" "}
                     Shoes
                 </label>
-                <label className="">
+                <label>
                     <input
                         type="checkbox"
                         onChange={() =>
@@ -164,7 +164,7 @@ export const FilterOptions = ({}) => {
                     />{" "}
                     Pant
                 </label>
-                <label className="">
+                <label>
                     <input
                         type="checkbox"
                         onChange={() =>
@@ -180,7 +180,7 @@ export const FilterOptions = ({}) => {
             </div>
             <div className="filter__rating m-2">
                 <h4 className="heading-xs text-bold">Rating</h4>
-                <label className="">
+                <label>
                     <input
                         type="radio"
                         name="filter-rating"
@@ -191,7 +191,7 @@ export const FilterOptions = ({}) => {
                     />{" "}
                     4 Stars & Above
                 </label>
-                <label className="">
+                <label>
                     <input
                         type="radio"
                         name="filter-rating"
@@ -202,7 +202,7 @@ export const FilterOptions = ({}) => {
                     />{" "}
                     3 Stars & Above
                 </label>
-                <label className="">
+                <label>
                     <input
                         type="radio"
                         name="filter-rating"
@@ -213,7 +213,7 @@ export const FilterOptions = ({}) => {
                     />{" "}
                     2 Stars & Above
                 </label>
-                <label className="">
+                <label>
                     <input
                         type="radio"
                         name="filter-rating"
@@ -227,7 +227,7 @@ export const FilterOptions = ({}) => {
             </div>
             <div className="filter__sort m-2">
                 <h4 className="heading-xs text-bold">Sort By Price</h4>
-                <label className="">
+                <label>
                     <input
                         type="radio"
                         name="price-sort"
@@ -241,7 +241,7 @@ export const FilterOptions = ({}) => {
                     />{" "}
                     Price - Low to High
                 </label>
-                <label className="">
+                <label>
                     <input
                         type="radio"
                         name="price-sort"
@@ -258,7 +258,7 @@ export const FilterOptions = ({}) => {
             </div>
             <div className="filter__sort m-2">
                 <h4 className="heading-xs text-bold">Sort By Rating</h4>
-                <label className="">
+                <label>
                     <input
                         type="radio"
                         name="rating-sort"
@@ -272,7 +272,7 @@ export const FilterOptions = ({}) => {
                     />{" "}
                     Rating - Low to High
                 </label>
-                <label className="">
+                <label>
                     <input
                         type="radio"
                         name="rating-sort"
@@ -289,7 +289,7 @@ export const FilterOptions = ({}) => {
             </div>
             <div className="filter__category m-2">
                 <h4 className="heading-xs text-bold">Other</h4>
-                <label className="">
+                <label>
                     <input
                         type="checkbox"
                         onChange={() =>
