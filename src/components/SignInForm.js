@@ -39,13 +39,7 @@ export const SignInForm = () => {
             </a>
 
             <div className="input ms-1">
-                <input
-                    type="checkbox"
-                    className=""
-                    name="tandc"
-                    id=""
-                    required
-                />
+                <input type="checkbox" name="tandc" id="" required />
                 <label className="text-sm" htmlFor="">
                     Remember Me
                 </label>
