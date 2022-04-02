@@ -1,6 +1,12 @@
 import axios from "axios";
 
-export const signInHandler = async (email, password) => {
+export const signInHandler = async (
+    email,
+    password,
+    showLoader,
+    hideLoader
+) => {
+    showLoader("Signing In");
     try {
         const {
             status,
@@ -18,9 +24,19 @@ export const signInHandler = async (email, password) => {
         }
     } catch (error) {
         console.log(error);
+    } finally {
+        hideLoader();
     }
 };
-export const signUpHandler = async (email, password, firstName, lastName) => {
+export const signUpHandler = async (
+    email,
+    password,
+    firstName,
+    lastName,
+    showLoader,
+    hideLoader
+) => {
+    showLoader("Signing Up");
     try {
         const response = await axios.post("/api/auth/signup", {
             email,
@@ -37,9 +53,13 @@ export const signUpHandler = async (email, password, firstName, lastName) => {
         }
     } catch (error) {
         console.log(error);
+    } finally {
+        hideLoader();
     }
 };
-export const signOutHandler = () => {
+export const signOutHandler = (showLoader, hideLoader) => {
+    showLoader("Signing Out");
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
+    setTimeout(hideLoader, 500);
 };

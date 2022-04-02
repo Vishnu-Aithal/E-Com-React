@@ -1,8 +1,10 @@
 import { Badge } from "./Badge";
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "contexts/auth-context";
 import { signOutHandler } from "utility-functions/authHandler";
+import { useCartWishlist } from "contexts/cart-wishlist-context";
+import { useLoader } from "contexts/loader-context";
 export const TopNav = ({}) => {
     const [collapsed, setCollapsed] = useState(true);
     const {
@@ -11,6 +13,11 @@ export const TopNav = ({}) => {
     } = useAuth();
     const activeClass = ({ isActive }) =>
         isActive ? "nav-bar__link nav-bar__link--active" : "nav-bar__link";
+    const {
+        cartWishlistState: { cart, wishlist },
+    } = useCartWishlist();
+    const { showLoader, hideLoader } = useLoader();
+    const navigate = useNavigate();
     return (
         <nav className="nav-bar bg-primary shadow-sm">
             <div className="nav-bar__header heading-md text-bold clr-white me-2">
@@ -42,20 +49,29 @@ export const TopNav = ({}) => {
                 <li className="nav-bar__list-item mx-3">
                     <NavLink to="/wishlist" className={activeClass}>
                         <i className="far fa-heart"></i>
-                        <Badge position="top-right" count="555" />
+                        {wishlist.length !== 0 && (
+                            <Badge
+                                position="top-right"
+                                count={wishlist.length}
+                            />
+                        )}
                     </NavLink>
                 </li>
                 <li className="nav-bar__list-item mx-3">
                     <NavLink to="/cart" className={activeClass}>
                         <i className="fas fa-shopping-cart"></i>
+                        {cart.length !== 0 && (
+                            <Badge position="top-right" count={cart.length} />
+                        )}
                     </NavLink>
                 </li>
                 <li className="nav-bar__list-item mx-3">
                     {isLoggedIn ? (
                         <div
                             onClick={() => {
-                                signOutHandler();
+                                signOutHandler(showLoader, hideLoader);
                                 authDispatch({ type: "LOGOUT" });
+                                setTimeout(() => navigate("/"), 600);
                             }}>
                             Sign Out
                         </div>

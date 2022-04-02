@@ -4,6 +4,16 @@ import "styles/productpage.css";
 import { useEffect } from "react";
 import axios from "axios";
 import { useFilter } from "contexts/filter-context";
+import { useCartWishlist } from "contexts/cart-wishlist-context";
+import {
+    addToCart,
+    addToWishlist,
+    inWishlist,
+    inCart,
+    moveToCart,
+    moveToWishlist,
+    removeFromWishlist,
+} from "utility-functions/cartWishllistHandler";
 export const ProductsPage = () => {
     const {
         filterState: {
@@ -11,6 +21,9 @@ export const ProductsPage = () => {
         },
         filterDispatch,
     } = useFilter();
+    const {
+        cartWishlistState: { cart, wishlist },
+    } = useCartWishlist();
     useEffect(() => {
         (async () => {
             try {
@@ -37,6 +50,13 @@ export const ProductsPage = () => {
                         type="listing"
                         productData={product}
                         badge={product.rating + " Stars"}
+                        addToCart={addToCart}
+                        addToWishlist={addToWishlist}
+                        moveToCart={moveToCart}
+                        moveToWishlist={moveToWishlist}
+                        inCart={inCart(product, cart)}
+                        removeFromWishlist={removeFromWishlist}
+                        inWishlist={inWishlist(product, wishlist)}
                     />
                 ))}
             </div>
