@@ -1,14 +1,10 @@
-// cart = [
-//     { item: {}, quantity },
-//     { item: {}, quantity },
-// ];
 export const CartInfo = ({ cart = [] }) => {
     const cartTotal = cart.reduce(
-        (sum, { item, quantity }) => sum + parseFLoat(item.price) * quantity,
+        (sum, { price, qty }) => sum + parseFloat(price) * qty,
         0
     );
-    const noOfItems = cart.length;
-    const deliveryCharges = 200 - cartTotal * 0.05;
+    const noOfItems = cart.reduce((sum, { qty }) => sum + qty, 0);
+    const deliveryCharges = noOfItems ? Math.max(200 - cartTotal * 0.01, 0) : 0;
     return (
         <div className="cart-info bg-light-gray br-2 p-3 m-3 shadow-xs">
             <h3 className="cart-info__header pb-2 m-2">PRICE DETAILS</h3>
