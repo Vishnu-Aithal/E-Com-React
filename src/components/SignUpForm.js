@@ -1,6 +1,28 @@
+import { signUpHandler } from "utility-functions/authHandler";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "contexts/auth-context";
 export const SignUpForm = () => {
+    const { authDispatch } = useAuth();
+    const navigate = useNavigate();
     return (
-        <form action="" className="p-4 w-fit mx-auto br-2 mt-6">
+        <form
+            onSubmit={async (e) => {
+                e.preventDefault();
+                const response = await signUpHandler(
+                    e.target.email.value,
+                    e.target.password.value,
+                    e.target.firstName.value,
+                    e.target.lastName.value
+                );
+                if (response) {
+                    authDispatch({
+                        type: "LOGIN",
+                        payload: response,
+                    });
+                    navigate("/");
+                }
+            }}
+            className="p-4 w-fit mx-auto br-2 mt-6">
             <h2 className="heading-md text-center mb-4">Sign Up</h2>
 
             <div className="input">
@@ -32,6 +54,20 @@ export const SignUpForm = () => {
             <div className="input">
                 <input
                     className="input__field"
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Enter Email"
+                    required
+                />
+                <label className="input__float-label" htmlFor="email">
+                    Email
+                </label>
+                <span className="input__required-text"></span>
+            </div>
+            <div className="input">
+                <input
+                    className="input__field"
                     type="password"
                     name="password"
                     id="password"
@@ -44,20 +80,7 @@ export const SignUpForm = () => {
                 </label>
                 <span className="input__required-text"></span>
             </div>
-            <div className="input">
-                <input
-                    className="input__field"
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder="Enter Email"
-                    required
-                />
-                <label className="input__float-label" htmlFor="email">
-                    Email
-                </label>
-                <span className="input__required-text"></span>
-            </div>
+
             <div className="input">
                 <input
                     className="input__field"
@@ -79,9 +102,10 @@ export const SignUpForm = () => {
                     I accept all terms and conditions
                 </label>
             </div>
-            <button className="btn btn--primary br-1 mt-2 w-100p" type="submit">
-                Sign Up
-            </button>
+            <input
+                className="btn btn--primary br-1 mt-2 w-100p"
+                type="submit"
+                value="Sign Up"></input>
         </form>
     );
 };

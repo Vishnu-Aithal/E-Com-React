@@ -1,8 +1,56 @@
-import { Link } from "react-router-dom";
-export const SignInForm = () => {
+import { signUpHandler } from "utility-functions/authHandler";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "contexts/auth-context";
+export const SignUpForm = () => {
+    const { authDispatch } = useAuth();
+    const navigate = useNavigate();
     return (
-        <form action="" className="p-4 w-fit mx-auto br-2 mt-6">
-            <h2 className="heading-md text-center mb-4">Sign In</h2>
+        <form
+            onSubmit={async (e) => {
+                e.preventDefault();
+                const response = await signUpHandler(
+                    e.target.email.value,
+                    e.target.password.value,
+                    e.target.firstName.value,
+                    e.target.lastName.value
+                );
+                if (response) {
+                    authDispatch({
+                        type: "LOGIN",
+                        payload: response,
+                    });
+                    navigate("/");
+                }
+            }}
+            className="p-4 w-fit mx-auto br-2 mt-6">
+            <h2 className="heading-md text-center mb-4">Sign Up</h2>
+
+            <div className="input">
+                <input
+                    type="text"
+                    className="input__field"
+                    name="firstName"
+                    placeholder="First name"
+                    required
+                />
+                <label className="input__float-label" htmlFor="name">
+                    First Name
+                </label>
+                <span className="input__required-text"></span>
+            </div>
+            <div className="input">
+                <input
+                    type="text"
+                    className="input__field"
+                    name="lastName"
+                    placeholder="Last name"
+                    required
+                />
+                <label className="input__float-label" htmlFor="name">
+                    Last Name
+                </label>
+                <span className="input__required-text"></span>
+            </div>
             <div className="input">
                 <input
                     className="input__field"
@@ -17,40 +65,53 @@ export const SignInForm = () => {
                 </label>
                 <span className="input__required-text"></span>
             </div>
-
             <div className="input">
                 <input
                     className="input__field"
                     type="password"
                     name="password"
                     id="password"
-                    placeholder="Enter Password"
+                    placeholder="Enter New Password"
                     minLength="8"
                     required
                 />
                 <label className="input__float-label" htmlFor="password">
-                    Password
+                    New Password
                 </label>
                 <span className="input__required-text"></span>
             </div>
 
-            <a className="d-inline-block text-end text-sm w-100p" href="">
-                Forgot password?
-            </a>
-
-            <div className="input ms-1">
-                <input type="checkbox" name="tandc" id="" required />
+            <div className="input">
+                <input
+                    className="input__field"
+                    type="password"
+                    name="password"
+                    id="password2"
+                    placeholder="Confirm Password"
+                    minLength="8"
+                    required
+                />
+                <label className="input__float-label" htmlFor="password">
+                    Confirm Password
+                </label>
+                <span className="input__required-text"></span>
+            </div>
+            <div className="input mx-auto">
+                <input
+                    type="checkbox"
+                    className=""
+                    name="tandc"
+                    id=""
+                    required
+                />
                 <label className="text-sm" htmlFor="">
-                    Remember Me
+                    I accept all terms and conditions
                 </label>
             </div>
-            <button className="btn btn--primary br-1 mt-2 w-100p" type="submit">
-                Sign In
-            </button>
-
-            <p className="helper-text mt-3">
-                Not a member? <Link to={"/sign-up"}>Sign Up</Link>
-            </p>
+            <input
+                className="btn btn--primary br-1 mt-2 w-100p"
+                type="submit"
+                value="Sign Up"></input>
         </form>
     );
 };
