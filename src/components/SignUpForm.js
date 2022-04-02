@@ -1,9 +1,11 @@
 import { signUpHandler } from "utility-functions/authHandler";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "contexts/auth-context";
+import { useLoader } from "contexts/loader-context";
 export const SignUpForm = () => {
     const { authDispatch } = useAuth();
     const navigate = useNavigate();
+    const { showLoader, hideLoader } = useLoader();
     return (
         <form
             onSubmit={async (e) => {
@@ -12,7 +14,9 @@ export const SignUpForm = () => {
                     e.target.email.value,
                     e.target.password.value,
                     e.target.firstName.value,
-                    e.target.lastName.value
+                    e.target.lastName.value,
+                    showLoader,
+                    hideLoader
                 );
                 if (response) {
                     authDispatch({

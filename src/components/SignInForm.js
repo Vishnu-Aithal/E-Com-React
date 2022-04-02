@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 import { signInHandler } from "utility-functions/authHandler";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "contexts/auth-context";
+import { useLoader } from "contexts/loader-context";
 export const SignInForm = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { authDispatch } = useAuth();
+    const { showLoader, hideLoader } = useLoader();
     return (
         <>
             <form
@@ -13,7 +15,9 @@ export const SignInForm = () => {
                     e.preventDefault();
                     const response = await signInHandler(
                         e.target.email.value,
-                        e.target.password.value
+                        e.target.password.value,
+                        showLoader,
+                        hideLoader
                     );
                     if (response) {
                         authDispatch({
@@ -79,7 +83,9 @@ export const SignInForm = () => {
                     onClick={async () => {
                         const response = await signInHandler(
                             "adarshbalika@gmail.com",
-                            "adarshbalika"
+                            "adarshbalika",
+                            showLoader,
+                            hideLoader
                         );
                         if (response) {
                             authDispatch({ type: "LOGIN", payload: response });
