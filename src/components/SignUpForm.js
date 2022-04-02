@@ -97,13 +97,7 @@ export const SignUpForm = () => {
                 <span className="input__required-text"></span>
             </div>
             <div className="input mx-auto">
-                <input
-                    type="checkbox"
-                    className=""
-                    name="tandc"
-                    id=""
-                    required
-                />
+                <input type="checkbox" name="tandc" id="" required />
                 <label className="text-sm" htmlFor="">
                     I accept all terms and conditions
                 </label>

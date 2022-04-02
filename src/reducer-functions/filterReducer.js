@@ -32,17 +32,17 @@ export const filterReducerFunction = (filterState, { type, payload }) => {
         }
         if (filters.category.length) {
             processed = processed.filter(({ category }) =>
-                filters.category.includes(category.toLowerCase())
+                filters.category.includes(category)
             );
         }
         if (filters.brand.length) {
             processed = processed.filter(({ brand }) =>
-                filters.brand.includes(brand.toLowerCase())
+                filters.brand.includes(brand)
             );
         }
         if (filters.type.length) {
             processed = processed.filter(({ type }) =>
-                filters.type.includes(type.toLowerCase())
+                filters.type.includes(type)
             );
         }
 

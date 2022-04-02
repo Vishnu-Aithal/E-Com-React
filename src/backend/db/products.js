@@ -36,7 +36,13 @@ const productsGenerator = (types, categories, brands) => {
                         products.length + 1
                     }`,
                     rating: getRandomElement(ratings),
-                    outOfStock: getRandomElement([true, false]),
+                    outOfStock: getRandomElement([
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                    ]),
                 };
                 products.push(product);
             }

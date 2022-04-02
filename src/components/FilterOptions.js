@@ -2,6 +2,10 @@ import { useFilter } from "contexts/filter-context";
 import { useEffect } from "react";
 
 export const FilterOptions = ({}) => {
+    const ratings = [4, 3, 2, 1];
+    const categories = ["Sports", "Casual", "Formal"];
+    const brands = ["Hike", "Adibas", "WoodSky"];
+    const types = ["Shoes", "Pant", "Shirt"];
     const {
         filterState: {
             data: { fromServer: products },
@@ -54,180 +58,80 @@ export const FilterOptions = ({}) => {
             </div>
             <div className="filter__category m-2">
                 <h4 className="heading-xs text-bold">Category</h4>
-                <label className="">
-                    <input
-                        type="checkbox"
-                        onChange={() =>
-                            dispatch({
-                                type: "CATEGORY",
-                                payload: "sports",
-                            })
-                        }
-                        checked={filters.category.includes("sports")}
-                    />{" "}
-                    Sports
-                </label>
-                <label className="">
-                    <input
-                        type="checkbox"
-                        onChange={() =>
-                            dispatch({
-                                type: "CATEGORY",
-                                payload: "casual",
-                            })
-                        }
-                        checked={filters.category.includes("casual")}
-                    />{" "}
-                    Casual
-                </label>
-                <label className="">
-                    <input
-                        type="checkbox"
-                        onChange={() =>
-                            dispatch({
-                                type: "CATEGORY",
-                                payload: "formal",
-                            })
-                        }
-                        checked={filters.category.includes("formal")}
-                    />{" "}
-                    Formal
-                </label>
+                {categories.map((category) => (
+                    <label>
+                        <input
+                            type="checkbox"
+                            onChange={() =>
+                                dispatch({
+                                    type: "CATEGORY",
+                                    payload: category,
+                                })
+                            }
+                            checked={filters.category.includes(category)}
+                        />{" "}
+                        {category}
+                    </label>
+                ))}
             </div>
             <div className="filter__category m-2">
                 <h4 className="heading-xs text-bold">Brand</h4>
-                <label className="">
-                    <input
-                        type="checkbox"
-                        onChange={() =>
-                            dispatch({
-                                type: "BRAND",
-                                payload: "hike",
-                            })
-                        }
-                        checked={filters.brand.includes("hike")}
-                    />{" "}
-                    Hike
-                </label>
-                <label className="">
-                    <input
-                        type="checkbox"
-                        onChange={() =>
-                            dispatch({
-                                type: "BRAND",
-                                payload: "adibas",
-                            })
-                        }
-                        checked={filters.brand.includes("adibas")}
-                    />{" "}
-                    Adibas
-                </label>
-                <label className="">
-                    <input
-                        type="checkbox"
-                        onChange={() =>
-                            dispatch({
-                                type: "BRAND",
-                                payload: "woodsky",
-                            })
-                        }
-                        checked={filters.brand.includes("woodsky")}
-                    />{" "}
-                    WoodSky
-                </label>
+                {brands.map((brand) => (
+                    <label>
+                        <input
+                            type="checkbox"
+                            onChange={() =>
+                                dispatch({
+                                    type: "BRAND",
+                                    payload: brand,
+                                })
+                            }
+                            checked={filters.brand.includes(brand)}
+                        />{" "}
+                        {brand}
+                    </label>
+                ))}
             </div>
             <div className="filter__category m-2">
                 <h4 className="heading-xs text-bold">Type</h4>
-                <label className="">
-                    <input
-                        type="checkbox"
-                        onChange={() =>
-                            dispatch({
-                                type: "TYPE",
-                                payload: "shoes",
-                            })
-                        }
-                        checked={filters.type.includes("shoes")}
-                    />{" "}
-                    Shoes
-                </label>
-                <label className="">
-                    <input
-                        type="checkbox"
-                        onChange={() =>
-                            dispatch({
-                                type: "TYPE",
-                                payload: "pant",
-                            })
-                        }
-                        checked={filters.type.includes("pant")}
-                    />{" "}
-                    Pant
-                </label>
-                <label className="">
-                    <input
-                        type="checkbox"
-                        onChange={() =>
-                            dispatch({
-                                type: "TYPE",
-                                payload: "shirt",
-                            })
-                        }
-                        checked={filters.type.includes("shirt")}
-                    />{" "}
-                    Shirt
-                </label>
+                {types.map((type) => (
+                    <label>
+                        <input
+                            type="checkbox"
+                            onChange={() =>
+                                dispatch({
+                                    type: "TYPE",
+                                    payload: type,
+                                })
+                            }
+                            checked={filters.type.includes(type)}
+                        />{" "}
+                        {type}
+                    </label>
+                ))}
             </div>
             <div className="filter__rating m-2">
                 <h4 className="heading-xs text-bold">Rating</h4>
-                <label className="">
-                    <input
-                        type="radio"
-                        name="filter-rating"
-                        checked={filters.rating === 4}
-                        onChange={() =>
-                            dispatch({ type: "SET_RATING", payload: 4 })
-                        }
-                    />{" "}
-                    4 Stars & Above
-                </label>
-                <label className="">
-                    <input
-                        type="radio"
-                        name="filter-rating"
-                        checked={filters.rating === 3}
-                        onChange={() =>
-                            dispatch({ type: "SET_RATING", payload: 3 })
-                        }
-                    />{" "}
-                    3 Stars & Above
-                </label>
-                <label className="">
-                    <input
-                        type="radio"
-                        name="filter-rating"
-                        checked={filters.rating === 2}
-                        onChange={() =>
-                            dispatch({ type: "SET_RATING", payload: 2 })
-                        }
-                    />{" "}
-                    2 Stars & Above
-                </label>
-                <label className="">
-                    <input
-                        type="radio"
-                        name="filter-rating"
-                        checked={filters.rating === 1}
-                        onChange={() =>
-                            dispatch({ type: "SET_RATING", payload: 1 })
-                        }
-                    />{" "}
-                    1 Stars & Above
-                </label>
+                {ratings.map((rating) => (
+                    <label>
+                        <input
+                            type="radio"
+                            name="filter-rating"
+                            checked={filters.rating === rating}
+                            onChange={() =>
+                                dispatch({
+                                    type: "SET_RATING",
+                                    payload: rating,
+                                })
+                            }
+                        />{" "}
+                        {rating} Stars & Above
+                    </label>
+                ))}
             </div>
             <div className="filter__sort m-2">
                 <h4 className="heading-xs text-bold">Sort By Price</h4>
-                <label className="">
+                <label>
                     <input
                         type="radio"
                         name="price-sort"
@@ -241,7 +145,7 @@ export const FilterOptions = ({}) => {
                     />{" "}
                     Price - Low to High
                 </label>
-                <label className="">
+                <label>
                     <input
                         type="radio"
                         name="price-sort"
@@ -258,7 +162,7 @@ export const FilterOptions = ({}) => {
             </div>
             <div className="filter__sort m-2">
                 <h4 className="heading-xs text-bold">Sort By Rating</h4>
-                <label className="">
+                <label>
                     <input
                         type="radio"
                         name="rating-sort"
@@ -272,7 +176,7 @@ export const FilterOptions = ({}) => {
                     />{" "}
                     Rating - Low to High
                 </label>
-                <label className="">
+                <label>
                     <input
                         type="radio"
                         name="rating-sort"
@@ -289,7 +193,7 @@ export const FilterOptions = ({}) => {
             </div>
             <div className="filter__category m-2">
                 <h4 className="heading-xs text-bold">Other</h4>
-                <label className="">
+                <label>
                     <input
                         type="checkbox"
                         onChange={() =>

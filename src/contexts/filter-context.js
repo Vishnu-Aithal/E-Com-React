@@ -2,7 +2,7 @@ import { createContext, useContext, useReducer } from "react";
 import {
     filterReducerFunction,
     initialState,
-} from "reducer-functions/filterFunction";
+} from "reducer-functions/filterReducer";
 
 const FilterContext = createContext();
 
