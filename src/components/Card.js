@@ -1,4 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import { useCartWishlist } from "contexts/cart-wishlist-context";
+import { useAuth } from "contexts/auth-context";
+import { useLoader } from "contexts/loader-context";
 export const Card = ({
     type = "home-page",
     productData = {
@@ -22,6 +25,11 @@ export const Card = ({
     cartQuantity = 0,
 }) => {
     const navigate = useNavigate();
+    const { cartWishlistDispatch: dispatch } = useCartWishlist();
+    const {
+        authState: { isLoggedIn, token },
+    } = useAuth();
+    const { showLoader, hideLoader } = useLoader();
     return (
         <div className="card shadow-sm">
             {badge && (
@@ -30,14 +38,34 @@ export const Card = ({
             {type === "cart" && (
                 <div
                     className="card__dismiss"
-                    onClick={() => removeFromCart(productData)}>
+                    onClick={() =>
+                        isLoggedIn
+                            ? removeFromCart(
+                                  productData,
+                                  dispatch,
+                                  token,
+                                  showLoader,
+                                  hideLoader
+                              )
+                            : navigate("/sign-in")
+                    }>
                     <i className="fas fa-times clr-black"></i>
                 </div>
             )}
             {type === "wishlist" && (
                 <div
                     className="card__dismiss"
-                    onClick={() => removeFromWishlist(productData)}>
+                    onClick={() =>
+                        isLoggedIn
+                            ? removeFromWishlist(
+                                  productData,
+                                  dispatch,
+                                  token,
+                                  showLoader,
+                                  hideLoader
+                              )
+                            : navigate("/sign-in")
+                    }>
                     <i className="fas fa-heart clr-red"></i>
                 </div>
             )}
@@ -103,13 +131,31 @@ export const Card = ({
                                 <>
                                     <button
                                         className="btn btn--secondary w-100p"
-                                        onClick={() => moveToCart(productData)}>
+                                        onClick={() =>
+                                            isLoggedIn
+                                                ? moveToCart(
+                                                      productData,
+                                                      dispatch,
+                                                      token,
+                                                      showLoader,
+                                                      hideLoader
+                                                  )
+                                                : navigate("/sign-in")
+                                        }>
                                         Move to Cart
                                     </button>
                                     <button
                                         className="btn btn--icon clr-red ms-1"
                                         onClick={() =>
-                                            removeFromWishlist(productData)
+                                            isLoggedIn
+                                                ? removeFromWishlist(
+                                                      productData,
+                                                      dispatch,
+                                                      token,
+                                                      showLoader,
+                                                      hideLoader
+                                                  )
+                                                : navigate("/sign-in")
                                         }>
                                         <i className="fas fa-heart"></i>
                                     </button>
@@ -118,13 +164,31 @@ export const Card = ({
                                 <>
                                     <button
                                         className="btn btn--primary w-100p"
-                                        onClick={() => addToCart(productData)}>
+                                        onClick={() =>
+                                            isLoggedIn
+                                                ? addToCart(
+                                                      productData,
+                                                      dispatch,
+                                                      token,
+                                                      showLoader,
+                                                      hideLoader
+                                                  )
+                                                : navigate("/sign-in")
+                                        }>
                                         Add to Cart
                                     </button>
                                     <button
                                         className="btn btn--icon clr-red ms-1"
                                         onClick={() =>
-                                            addToWishlist(productData)
+                                            isLoggedIn
+                                                ? addToWishlist(
+                                                      productData,
+                                                      dispatch,
+                                                      token,
+                                                      showLoader,
+                                                      hideLoader
+                                                  )
+                                                : navigate("/sign-in")
                                         }>
                                         <i className="far fa-heart"></i>
                                     </button>
@@ -139,7 +203,17 @@ export const Card = ({
                 <div className="card__cta-wrapper p-2">
                     <button
                         className="btn btn--secondary mx-1 w-100p"
-                        onClick={() => moveToCart(productData)}>
+                        onClick={() =>
+                            isLoggedIn
+                                ? moveToCart(
+                                      productData,
+                                      dispatch,
+                                      token,
+                                      showLoader,
+                                      hideLoader
+                                  )
+                                : navigate("/sign-in")
+                        }>
                         Move to Cart
                     </button>
                 </div>
@@ -157,20 +231,50 @@ export const Card = ({
                 <div className="card__cta-wrapper p-2">
                     <button
                         className="btn btn--outline-secondary mx-1"
-                        onClick={() => moveToWishlist(productData)}>
+                        onClick={() =>
+                            isLoggedIn
+                                ? moveToWishlist(
+                                      productData,
+                                      dispatch,
+                                      token,
+                                      showLoader,
+                                      hideLoader
+                                  )
+                                : navigate("/sign-in")
+                        }>
                         Move to Wishlist
                     </button>
                     <div className="card__quantity ms-auto">
                         <button
                             className="btn btn--icon"
                             disabled={cartQuantity <= 1}
-                            onClick={() => decreaseQuantity(productData)}>
+                            onClick={() =>
+                                isLoggedIn
+                                    ? decreaseQuantity(
+                                          productData,
+                                          dispatch,
+                                          token,
+                                          showLoader,
+                                          hideLoader
+                                      )
+                                    : navigate("/sign-in")
+                            }>
                             -
                         </button>
                         <p className="card__item-count">{cartQuantity}</p>
                         <button
                             className="btn btn--icon"
-                            onClick={() => increaseQuantity(productData)}>
+                            onClick={() =>
+                                isLoggedIn
+                                    ? increaseQuantity(
+                                          productData,
+                                          dispatch,
+                                          token,
+                                          showLoader,
+                                          hideLoader
+                                      )
+                                    : navigate("/sign-in")
+                            }>
                             +
                         </button>
                     </div>
