@@ -89,7 +89,6 @@ export const SignInForm = () => {
 
                         if (response) {
                             if (location.state) {
-                                debugger;
                                 navigate(location.state.from);
                             } else {
                                 navigate("/products");
