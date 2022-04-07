@@ -19,15 +19,15 @@ export const SignInForm = () => {
                         hideLoader
                     );
                     if (response) {
+                        authDispatch({
+                            type: "LOGIN",
+                            payload: response,
+                        });
                         if (location.state) {
                             navigate(location.state.from);
                         } else {
                             navigate("/products");
                         }
-                        authDispatch({
-                            type: "LOGIN",
-                            payload: response,
-                        });
                     }
                 }}
                 className="p-4 w-fit mx-auto br-2 mt-6">
@@ -88,15 +88,15 @@ export const SignInForm = () => {
                         );
 
                         if (response) {
+                            authDispatch({
+                                type: "LOGIN",
+                                payload: response,
+                            });
                             if (location.state) {
                                 navigate(location.state.from);
                             } else {
                                 navigate("/products");
                             }
-                            authDispatch({
-                                type: "LOGIN",
-                                payload: response,
-                            });
                         }
                     }}>
                     Sign In Demo

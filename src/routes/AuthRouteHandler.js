@@ -7,6 +7,7 @@ import { WishlistPage } from "routes/WishlistPage.js";
 import { SignInPage } from "routes/SignInPage";
 import { SignUpPage } from "routes/SignUpPage";
 import { ProductsPage } from "routes/ProductsPage";
+import { NotFound } from "./NotFound";
 import { useAuth } from "contexts/auth-context";
 
 export const ConditionalRouter = () => {
@@ -22,11 +23,10 @@ export const ConditionalRouter = () => {
                     <Route path="/cart" element={<CartPage />} />
                     <Route path="/wishlist" element={<WishlistPage />} />
                 </Route>
-                <Route element={<ProtectedAuth isLoggedIn={isLoggedIn} />}>
-                    <Route path="/sign-in" element={<SignInPage />} />
-                    <Route path="/sign-up" element={<SignUpPage />} />
-                </Route>
+                <Route path="/sign-in" element={<SignInPage />} />
+                <Route path="/sign-up" element={<SignUpPage />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
         </Routes>
     );
 };
