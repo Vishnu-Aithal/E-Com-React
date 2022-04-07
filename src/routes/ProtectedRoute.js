@@ -10,5 +10,5 @@ export const ProtectedRoute = ({ isLoggedIn }) => {
 };
 
 export const ProtectedAuth = ({ isLoggedIn }) => {
-    return isLoggedIn ? <Navigate to="/" replace /> : <Outlet />;
+    return isLoggedIn ? <Navigate to="/products" replace /> : <Outlet />;
 };
