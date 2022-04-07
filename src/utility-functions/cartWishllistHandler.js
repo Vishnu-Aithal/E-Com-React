@@ -1,6 +1,11 @@
 import axios from "axios";
 
-export const getCartAndWishlist = async (token, showLoader, hideLoader) => {
+export const getCartAndWishlist = async (
+    token,
+    dispatch,
+    showLoader,
+    hideLoader
+) => {
     showLoader("Getting Cart and Wishlist");
     try {
         const {
@@ -15,13 +20,22 @@ export const getCartAndWishlist = async (token, showLoader, hideLoader) => {
         } = await axios.get("/api/user/wishlist", {
             headers: { authorization: token },
         });
-        return { cart, wishlist };
+        dispatch({
+            type: "LOAD_DATA",
+            payload: { cart, wishlist },
+        });
     } catch (error) {
         console.log(error);
     } finally {
         hideLoader();
     }
 };
+
+export const resetCartCartAndWishlist = (dispatch) =>
+    dispatch({
+        type: "LOAD_DATA",
+        payload: { cart: [], wishlist: [] },
+    });
 
 export const addToCart = async (
     item,

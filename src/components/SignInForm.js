@@ -19,15 +19,15 @@ export const SignInForm = () => {
                         hideLoader
                     );
                     if (response) {
+                        if (location.state) {
+                            navigate(location.state.from);
+                        } else {
+                            navigate("/products");
+                        }
                         authDispatch({
                             type: "LOGIN",
                             payload: response,
                         });
-                        navigate(
-                            location.pathname !== "/sign-in"
-                                ? location.pathname
-                                : "/"
-                        );
                     }
                 }}
                 className="p-4 w-fit mx-auto br-2 mt-6">
@@ -86,13 +86,18 @@ export const SignInForm = () => {
                             showLoader,
                             hideLoader
                         );
+
                         if (response) {
-                            authDispatch({ type: "LOGIN", payload: response });
-                            navigate(
-                                location.pathname !== "/sign-in"
-                                    ? location.pathname
-                                    : "/"
-                            );
+                            if (location.state) {
+                                debugger;
+                                navigate(location.state.from);
+                            } else {
+                                navigate("/products");
+                            }
+                            authDispatch({
+                                type: "LOGIN",
+                                payload: response,
+                            });
                         }
                     }}>
                     Sign In Demo

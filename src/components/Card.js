@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useCartWishlist } from "contexts/cart-wishlist-context";
 import { useAuth } from "contexts/auth-context";
 import { useLoader } from "contexts/loader-context";
@@ -25,6 +25,7 @@ export const Card = ({
     cartQuantity = 0,
 }) => {
     const navigate = useNavigate();
+    const location = useLocation();
     const { cartWishlistDispatch: dispatch } = useCartWishlist();
     const {
         authState: { isLoggedIn, token },
@@ -47,7 +48,9 @@ export const Card = ({
                                   showLoader,
                                   hideLoader
                               )
-                            : navigate("/sign-in")
+                            : navigate("/sign-in", {
+                                  state: { from: location.pathname },
+                              })
                     }>
                     <i className="fas fa-times clr-black"></i>
                 </div>
@@ -64,7 +67,9 @@ export const Card = ({
                                   showLoader,
                                   hideLoader
                               )
-                            : navigate("/sign-in")
+                            : navigate("/sign-in", {
+                                  state: { from: location.pathname },
+                              })
                     }>
                     <i className="fas fa-heart clr-red"></i>
                 </div>
@@ -140,7 +145,11 @@ export const Card = ({
                                                       showLoader,
                                                       hideLoader
                                                   )
-                                                : navigate("/sign-in")
+                                                : navigate("/sign-in", {
+                                                      state: {
+                                                          from: location.pathname,
+                                                      },
+                                                  })
                                         }>
                                         Move to Cart
                                     </button>
@@ -155,7 +164,11 @@ export const Card = ({
                                                       showLoader,
                                                       hideLoader
                                                   )
-                                                : navigate("/sign-in")
+                                                : navigate("/sign-in", {
+                                                      state: {
+                                                          from: location.pathname,
+                                                      },
+                                                  })
                                         }>
                                         <i className="fas fa-heart"></i>
                                     </button>
@@ -173,7 +186,11 @@ export const Card = ({
                                                       showLoader,
                                                       hideLoader
                                                   )
-                                                : navigate("/sign-in")
+                                                : navigate("/sign-in", {
+                                                      state: {
+                                                          from: location.pathname,
+                                                      },
+                                                  })
                                         }>
                                         Add to Cart
                                     </button>
@@ -188,7 +205,11 @@ export const Card = ({
                                                       showLoader,
                                                       hideLoader
                                                   )
-                                                : navigate("/sign-in")
+                                                : navigate("/sign-in", {
+                                                      state: {
+                                                          from: location.pathname,
+                                                      },
+                                                  })
                                         }>
                                         <i className="far fa-heart"></i>
                                     </button>
@@ -212,7 +233,9 @@ export const Card = ({
                                       showLoader,
                                       hideLoader
                                   )
-                                : navigate("/sign-in")
+                                : navigate("/sign-in", {
+                                      state: { from: location.pathname },
+                                  })
                         }>
                         Move to Cart
                     </button>
@@ -240,7 +263,9 @@ export const Card = ({
                                       showLoader,
                                       hideLoader
                                   )
-                                : navigate("/sign-in")
+                                : navigate("/sign-in", {
+                                      state: { from: location.pathname },
+                                  })
                         }>
                         Move to Wishlist
                     </button>
@@ -257,7 +282,9 @@ export const Card = ({
                                           showLoader,
                                           hideLoader
                                       )
-                                    : navigate("/sign-in")
+                                    : navigate("/sign-in", {
+                                          state: { from: location.pathname },
+                                      })
                             }>
                             -
                         </button>
@@ -273,7 +300,9 @@ export const Card = ({
                                           showLoader,
                                           hideLoader
                                       )
-                                    : navigate("/sign-in")
+                                    : navigate("/sign-in", {
+                                          state: { from: location.pathname },
+                                      })
                             }>
                             +
                         </button>

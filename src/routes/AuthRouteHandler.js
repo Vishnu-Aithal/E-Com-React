@@ -1,5 +1,6 @@
 import App from "App";
 import { Route, Routes } from "react-router-dom";
+import { ProtectedAuth, ProtectedRoute } from "./ProtectedRoute";
 import { CartPage } from "routes/CartPage.js";
 import { HomePage } from "routes/HomePage.js";
 import { WishlistPage } from "routes/WishlistPage.js";
@@ -8,7 +9,7 @@ import { SignUpPage } from "routes/SignUpPage";
 import { ProductsPage } from "routes/ProductsPage";
 import { useAuth } from "contexts/auth-context";
 
-export const ConditionalRouter = ({ children }) => {
+export const ConditionalRouter = () => {
     const {
         authState: { isLoggedIn },
     } = useAuth();
@@ -16,23 +17,15 @@ export const ConditionalRouter = ({ children }) => {
         <Routes>
             <Route path="/" element={<App />}>
                 <Route index element={<HomePage />} />
-                <Route
-                    path="cart"
-                    element={isLoggedIn ? <CartPage /> : <SignInPage />}
-                />
-                <Route
-                    path="wishlist"
-                    element={isLoggedIn ? <WishlistPage /> : <SignInPage />}
-                />
-                <Route
-                    path="sign-in"
-                    element={isLoggedIn ? <HomePage /> : <SignInPage />}
-                />
-                <Route
-                    path="sign-up"
-                    element={isLoggedIn ? <HomePage /> : <SignUpPage />}
-                />
-                <Route path="products" element={<ProductsPage />} />
+                <Route path="/products" element={<ProductsPage />} />
+                <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
+                    <Route path="/cart" element={<CartPage />} />
+                    <Route path="/wishlist" element={<WishlistPage />} />
+                </Route>
+                <Route element={<ProtectedAuth isLoggedIn={isLoggedIn} />}>
+                    <Route path="/sign-in" element={<SignInPage />} />
+                    <Route path="/sign-up" element={<SignUpPage />} />
+                </Route>
             </Route>
         </Routes>
     );

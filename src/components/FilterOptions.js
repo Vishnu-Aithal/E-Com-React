@@ -59,7 +59,7 @@ export const FilterOptions = ({}) => {
             <div className="filter__category m-2">
                 <h4 className="heading-xs text-bold">Category</h4>
                 {categories.map((category) => (
-                    <label>
+                    <label key={category}>
                         <input
                             type="checkbox"
                             onChange={() =>
@@ -77,7 +77,7 @@ export const FilterOptions = ({}) => {
             <div className="filter__category m-2">
                 <h4 className="heading-xs text-bold">Brand</h4>
                 {brands.map((brand) => (
-                    <label>
+                    <label key={brand}>
                         <input
                             type="checkbox"
                             onChange={() =>
@@ -95,7 +95,7 @@ export const FilterOptions = ({}) => {
             <div className="filter__category m-2">
                 <h4 className="heading-xs text-bold">Type</h4>
                 {types.map((type) => (
-                    <label>
+                    <label key={type}>
                         <input
                             type="checkbox"
                             onChange={() =>
@@ -113,7 +113,7 @@ export const FilterOptions = ({}) => {
             <div className="filter__rating m-2">
                 <h4 className="heading-xs text-bold">Rating</h4>
                 {ratings.map((rating) => (
-                    <label>
+                    <label key={rating}>
                         <input
                             type="radio"
                             name="filter-rating"
