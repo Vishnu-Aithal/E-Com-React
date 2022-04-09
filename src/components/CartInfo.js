@@ -1,3 +1,5 @@
+import { useToast } from "contexts/toast-context";
+
 export const CartInfo = ({ cart = [] }) => {
     const cartTotal = cart.reduce(
         (sum, { price, qty }) => sum + parseFloat(price) * qty,
@@ -5,6 +7,7 @@ export const CartInfo = ({ cart = [] }) => {
     );
     const noOfItems = cart.reduce((sum, { qty }) => sum + qty, 0);
     const deliveryCharges = noOfItems ? Math.max(200 - cartTotal * 0.01, 0) : 0;
+    const { showToast } = useToast();
     return (
         <div className="cart-info bg-light-gray br-2 p-3 m-3 shadow-xs">
             <h3 className="cart-info__header pb-2 m-2">PRICE DETAILS</h3>
@@ -26,7 +29,15 @@ export const CartInfo = ({ cart = [] }) => {
                     </span>
                 </p>
             </div>
-            <button className="btn btn--primary w-100p m-2 br-1">
+            <button
+                className="btn btn--primary w-100p m-2 br-1"
+                onClick={() =>
+                    showToast({
+                        title: "Order Placed",
+                        description: "Arriving in 2 days",
+                        type: "success",
+                    })
+                }>
                 Checkout
             </button>
         </div>
