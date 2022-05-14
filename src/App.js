@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import "./index.css";
 
 import { Loader } from "components/Loader";
+import { ToastContainer } from "components/Toast";
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
                 <TopNav />
                 <Outlet />
             </main>
+            <ToastContainer />
         </div>
     );
 }

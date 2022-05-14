@@ -9,6 +9,7 @@ import { FilterProvider } from "contexts/filter-context";
 import { CartWishlistProvider } from "contexts/cart-wishlist-context";
 import { LoaderProvider } from "contexts/loader-context";
 import { ContextProvider } from "contexts/composer-context";
+import { ToastProvider } from "contexts/toast-context";
 
 // Call make Server
 makeServer();
@@ -19,6 +20,7 @@ ReactDOM.render(
             React.StrictMode,
             BrowserRouter,
             LoaderProvider,
+            ToastProvider,
             AuthProvider,
             CartWishlistProvider,
             FilterProvider,
