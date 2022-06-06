@@ -1,21 +1,22 @@
 import axios from "axios";
+import { CartWishlistDispatch } from "contexts/cart-wishlist-context";
+import { HideLoader, ShowLoader } from "contexts/loader-context";
+import { CartProduct, Product } from "types/Product";
 
 export const getCartAndWishlist = async (
-    token,
-    dispatch,
-    showLoader,
-    hideLoader
+    token: string,
+    dispatch: CartWishlistDispatch,
+    showLoader: ShowLoader,
+    hideLoader: HideLoader
 ) => {
     showLoader("Getting Cart and Wishlist");
     try {
         const {
-            status: cartStatus,
             data: { cart },
         } = await axios.get("/api/user/cart", {
             headers: { authorization: token },
         });
         const {
-            status: wishlistStatus,
             data: { wishlist },
         } = await axios.get("/api/user/wishlist", {
             headers: { authorization: token },
@@ -31,23 +32,22 @@ export const getCartAndWishlist = async (
     }
 };
 
-export const resetCartCartAndWishlist = (dispatch) =>
+export const resetCartCartAndWishlist = (dispatch: CartWishlistDispatch) =>
     dispatch({
         type: "LOAD_DATA",
         payload: { cart: [], wishlist: [] },
     });
 
 export const addToCart = async (
-    item,
-    dispatch,
-    token,
-    showLoader,
-    hideLoader
+    item: Product,
+    dispatch: CartWishlistDispatch,
+    token: string,
+    showLoader: ShowLoader,
+    hideLoader: HideLoader
 ) => {
     showLoader("Adding to Cart");
     try {
         const {
-            status,
             data: { cart },
         } = await axios.post(
             "/api/user/cart",
@@ -63,16 +63,15 @@ export const addToCart = async (
 };
 
 export const increaseCartQty = async (
-    item,
-    dispatch,
-    token,
-    showLoader,
-    hideLoader
+    item: Product,
+    token: string,
+    dispatch: CartWishlistDispatch,
+    showLoader: ShowLoader,
+    hideLoader: HideLoader
 ) => {
     showLoader("Increasing Quantity");
     try {
         const {
-            status,
             data: { cart },
         } = await axios.post(
             `/api/user/cart/${item._id}`,
@@ -88,16 +87,15 @@ export const increaseCartQty = async (
 };
 
 export const decreaseCartQty = async (
-    item,
-    dispatch,
-    token,
-    showLoader,
-    hideLoader
+    item: Product,
+    token: string,
+    dispatch: CartWishlistDispatch,
+    showLoader: ShowLoader,
+    hideLoader: HideLoader
 ) => {
     showLoader("Decreasing Quantity");
     try {
         const {
-            status,
             data: { cart },
         } = await axios.post(
             `/api/user/cart/${item._id}`,
@@ -113,16 +111,15 @@ export const decreaseCartQty = async (
 };
 
 export const removeFromCart = async (
-    item,
-    dispatch,
-    token,
-    showLoader,
-    hideLoader
+    item: Product,
+    token: string,
+    dispatch: CartWishlistDispatch,
+    showLoader: ShowLoader,
+    hideLoader: HideLoader
 ) => {
     showLoader("Removing From Cart");
     try {
         const {
-            status,
             data: { cart },
         } = await axios.delete(`/api/user/cart/${item._id}`, {
             headers: { authorization: token },
@@ -136,16 +133,15 @@ export const removeFromCart = async (
 };
 
 export const addToWishlist = async (
-    item,
-    dispatch,
-    token,
-    showLoader,
-    hideLoader
+    item: Product,
+    token: string,
+    dispatch: CartWishlistDispatch,
+    showLoader: ShowLoader,
+    hideLoader: HideLoader
 ) => {
     showLoader("Adding to Wishlist");
     try {
         const {
-            status,
             data: { wishlist },
         } = await axios.post(
             "/api/user/wishlist",
@@ -161,16 +157,15 @@ export const addToWishlist = async (
 };
 
 export const removeFromWishlist = async (
-    item,
-    dispatch,
-    token,
-    showLoader,
-    hideLoader
+    item: Product,
+    token: string,
+    dispatch: CartWishlistDispatch,
+    showLoader: ShowLoader,
+    hideLoader: HideLoader
 ) => {
     showLoader("Removing from Wishlist");
     try {
         const {
-            status,
             data: { wishlist },
         } = await axios.delete(`/api/user/wishlist/${item._id}`, {
             headers: { authorization: token },
@@ -184,22 +179,20 @@ export const removeFromWishlist = async (
 };
 
 export const moveToCart = async (
-    item,
-    dispatch,
-    token,
-    showLoader,
-    hideLoader
+    item: Product,
+    token: string,
+    dispatch: CartWishlistDispatch,
+    showLoader: ShowLoader,
+    hideLoader: HideLoader
 ) => {
     showLoader("Moving to Cart");
     try {
         const {
-            status: wishlistStatus,
             data: { wishlist },
         } = await axios.delete(`/api/user/wishlist/${item._id}`, {
             headers: { authorization: token },
         });
         const {
-            status: cartStatus,
             data: { cart },
         } = await axios.post(
             "/api/user/cart",
@@ -215,23 +208,21 @@ export const moveToCart = async (
     }
 };
 export const moveToWishlist = async (
-    item,
-    dispatch,
-    token,
-    showLoader,
-    hideLoader
+    item: Product,
+    token: string,
+    dispatch: CartWishlistDispatch,
+    showLoader: ShowLoader,
+    hideLoader: HideLoader
 ) => {
     showLoader("Moving to Wishlist");
     try {
         const {
-            status: cartStatus,
             data: { cart },
         } = await axios.delete(`/api/user/cart/${item._id}`, {
             headers: { authorization: token },
         });
 
         const {
-            status: wishlistStatus,
             data: { wishlist },
         } = await axios.post(
             "/api/user/wishlist",
@@ -247,10 +238,10 @@ export const moveToWishlist = async (
     }
 };
 
-export const inCart = (item, cart) => {
+export const inCart = (item: Product, cart: CartProduct[]) => {
     return cart.findIndex((cartItem) => cartItem._id === item._id) !== -1;
 };
-export const inWishlist = (item, wishlist) => {
+export const inWishlist = (item: Product, wishlist: Product[]) => {
     return (
         wishlist.findIndex((wishlistItem) => wishlistItem._id === item._id) !==
         -1
