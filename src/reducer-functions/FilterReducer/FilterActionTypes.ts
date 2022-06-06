@@ -7,7 +7,7 @@ interface LoadData {
 
 interface UndefinedPayloadActions {
     type: "PROCESS" | "CLEAR_FILTERS";
-    payload: undefined;
+    payload?: undefined;
 }
 interface StringPayloadActions {
     type: "SET_SEARCH_TERM" | "SET_PRICE_RANGE" | "CATEGORY" | "BRAND" | "TYPE";
@@ -21,7 +21,7 @@ interface SetRating {
 
 interface ShowOutOfStock {
     type: "SHOW_OUT_OF_STOCK";
-    payload: boolean;
+    payload?: undefined;
 }
 
 interface SortPayloadActions {
