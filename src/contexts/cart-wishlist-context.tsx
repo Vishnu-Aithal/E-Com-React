@@ -34,7 +34,6 @@ const CartWishlistProvider: React.FC<React.PropsWithChildren> = ({
     const { showLoader, hideLoader } = useLoader();
 
     useEffect(() => {
-        console.log("here");
         (async () => {
             if (authState.isLoggedIn) {
                 getCartAndWishlist(
