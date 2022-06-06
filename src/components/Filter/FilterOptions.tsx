@@ -1,7 +1,8 @@
 import { useFilter } from "contexts/filter-context";
 import { useEffect } from "react";
+import { Product } from "types/Product";
 
-export const FilterOptions = ({}) => {
+export const FilterOptions: React.FC = () => {
     const ratings = [4, 3, 2, 1];
     const categories = ["Sports", "Casual", "Formal"];
     const brands = ["Hike", "Adibas", "WoodSky"];
@@ -14,14 +15,17 @@ export const FilterOptions = ({}) => {
         },
         filterDispatch: dispatch,
     } = useFilter();
-    const getMaxMinPrice = (products) => {
+    const getMaxMinPrice = (products: Product[]) => {
         const prices = products.map((product) => parseFloat(product.price));
         const maxPrice = Math.ceil(Math.max(...prices) / 100) * 100;
         const minPrice = Math.floor(Math.min(...prices) / 100) * 100;
         return { maxPrice, minPrice };
     };
     const { maxPrice, minPrice } = getMaxMinPrice(products);
-    useEffect(() => dispatch({ type: "PROCESS" }), [filters, sorters]);
+    useEffect(
+        () => dispatch({ type: "PROCESS" }),
+        [filters, sorters, dispatch]
+    );
     return (
         <aside className="filter">
             <div className="filter__header m-2">
@@ -49,11 +53,15 @@ export const FilterOptions = ({}) => {
                     }
                 />
                 <datalist id="price-steps">
-                    <option value={minPrice} label={minPrice}></option>
+                    <option
+                        value={minPrice}
+                        label={minPrice.toString()}></option>
                     <div className="text-bold text-md">
                         {filters.priceRange ?? maxPrice}
                     </div>
-                    <option value={maxPrice} label={maxPrice}></option>
+                    <option
+                        value={maxPrice}
+                        label={maxPrice.toString()}></option>
                 </datalist>
             </div>
             <div className="filter__category m-2">

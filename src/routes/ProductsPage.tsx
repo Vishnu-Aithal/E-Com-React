@@ -1,19 +1,12 @@
-import { Card } from "components/Card";
-import { FilterOptions } from "components/FilterOptions";
+import { Card } from "components/Card/Index";
+import { FilterOptions } from "components/Filter/FilterOptions";
 import "styles/productpage.css";
 import { useEffect } from "react";
 import axios from "axios";
 import { useFilter } from "contexts/filter-context";
 import { useCartWishlist } from "contexts/cart-wishlist-context";
-import {
-    addToCart,
-    addToWishlist,
-    inWishlist,
-    inCart,
-    moveToCart,
-    moveToWishlist,
-    removeFromWishlist,
-} from "utility-functions/cartWishllistHandler";
+import { inCart, inWishlist } from "utility-functions/cartWishllistHandler";
+
 export const ProductsPage = () => {
     const {
         filterState: {
@@ -36,7 +29,7 @@ export const ProductsPage = () => {
                 console.log(error);
             }
         })();
-    }, []);
+    }, [filterDispatch]);
     return (
         <div className="product-content">
             <FilterOptions />
@@ -44,18 +37,13 @@ export const ProductsPage = () => {
                 <h3 className="w-100p ms-3">
                     Showing {products.length} products
                 </h3>
-                {products.map((product, index) => (
+                {products.map((product) => (
                     <Card
-                        key={index}
+                        key={product._id}
                         type="listing"
                         productData={product}
                         badge={product.rating + " Stars"}
-                        addToCart={addToCart}
-                        addToWishlist={addToWishlist}
-                        moveToCart={moveToCart}
-                        moveToWishlist={moveToWishlist}
                         inCart={inCart(product, cart)}
-                        removeFromWishlist={removeFromWishlist}
                         inWishlist={inWishlist(product, wishlist)}
                     />
                 ))}

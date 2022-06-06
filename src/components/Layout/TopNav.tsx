@@ -1,4 +1,4 @@
-import { Badge } from "./Badge";
+import { Badge } from "../Badge/Badge";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "contexts/auth-context";
@@ -7,13 +7,13 @@ import { useCartWishlist } from "contexts/cart-wishlist-context";
 import { useLoader } from "contexts/loader-context";
 import { useFilter } from "contexts/filter-context";
 
-export const TopNav = ({}) => {
+export const TopNav: React.FC = () => {
     const [collapsed, setCollapsed] = useState(true);
     const {
         authState: { isLoggedIn },
         authDispatch,
     } = useAuth();
-    const activeClass = ({ isActive }) =>
+    const activeClass = ({ isActive }: { isActive: boolean }) =>
         isActive ? "nav-bar__link nav-bar__link--active" : "nav-bar__link";
     const {
         cartWishlistState: { cart, wishlist },
@@ -25,12 +25,11 @@ export const TopNav = ({}) => {
     const [searchTerm, setSearchTerm] = useState("");
     useEffect(
         () => filterDispatch({ type: "SET_SEARCH_TERM", payload: searchTerm }),
-        [searchTerm]
+        [searchTerm, filterDispatch]
     );
-    useEffect(
-        () => location.pathname !== "/products" && setSearchTerm(""),
-        [location]
-    );
+    useEffect(() => {
+        location.pathname !== "/products" && setSearchTerm("");
+    }, [location]);
     return (
         <nav className="nav-bar bg-primary shadow-sm">
             <div className="nav-bar__header heading-md text-bold clr-white me-2">
@@ -67,6 +66,7 @@ export const TopNav = ({}) => {
                         <i className="far fa-heart"></i>
                         {wishlist.length !== 0 && (
                             <Badge
+                                type="count"
                                 position="top-right"
                                 count={wishlist.length}
                             />
@@ -77,7 +77,11 @@ export const TopNav = ({}) => {
                     <NavLink to="/cart" className={activeClass}>
                         <i className="fas fa-shopping-cart"></i>
                         {cart.length !== 0 && (
-                            <Badge position="top-right" count={cart.length} />
+                            <Badge
+                                type="count"
+                                position="top-right"
+                                count={cart.length}
+                            />
                         )}
                     </NavLink>
                 </li>

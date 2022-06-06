@@ -2,19 +2,26 @@ import { signUpHandler } from "utility-functions/authHandler";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "contexts/auth-context";
 import { useLoader } from "contexts/loader-context";
+import { useState } from "react";
 export const SignUpForm = () => {
     const { authDispatch } = useAuth();
     const navigate = useNavigate();
     const { showLoader, hideLoader } = useLoader();
+    const [formDetails, setFormDetails] = useState({
+        email: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+    });
     return (
         <form
             onSubmit={async (e) => {
                 e.preventDefault();
                 const response = await signUpHandler(
-                    e.target.email.value,
-                    e.target.password.value,
-                    e.target.firstName.value,
-                    e.target.lastName.value,
+                    formDetails.email,
+                    formDetails.password,
+                    formDetails.firstName,
+                    formDetails.lastName,
                     showLoader,
                     hideLoader
                 );
@@ -31,6 +38,13 @@ export const SignUpForm = () => {
 
             <div className="input">
                 <input
+                    value={formDetails.firstName}
+                    onChange={(e) =>
+                        setFormDetails((formDetails) => ({
+                            ...formDetails,
+                            firstName: e.target.value,
+                        }))
+                    }
                     type="text"
                     className="input__field"
                     name="firstName"
@@ -44,6 +58,13 @@ export const SignUpForm = () => {
             </div>
             <div className="input">
                 <input
+                    value={formDetails.lastName}
+                    onChange={(e) =>
+                        setFormDetails((formDetails) => ({
+                            ...formDetails,
+                            lastName: e.target.value,
+                        }))
+                    }
                     type="text"
                     className="input__field"
                     name="lastName"
@@ -57,6 +78,13 @@ export const SignUpForm = () => {
             </div>
             <div className="input">
                 <input
+                    value={formDetails.email}
+                    onChange={(e) =>
+                        setFormDetails((formDetails) => ({
+                            ...formDetails,
+                            email: e.target.value,
+                        }))
+                    }
                     className="input__field"
                     type="email"
                     name="email"
@@ -71,12 +99,19 @@ export const SignUpForm = () => {
             </div>
             <div className="input">
                 <input
+                    value={formDetails.password}
+                    onChange={(e) =>
+                        setFormDetails((formDetails) => ({
+                            ...formDetails,
+                            password: e.target.value,
+                        }))
+                    }
                     className="input__field"
                     type="password"
                     name="password"
                     id="password"
                     placeholder="Enter New Password"
-                    minLength="8"
+                    minLength={8}
                     required
                 />
                 <label className="input__float-label" htmlFor="password">
@@ -92,7 +127,7 @@ export const SignUpForm = () => {
                     name="password"
                     id="password2"
                     placeholder="Confirm Password"
-                    minLength="8"
+                    minLength={8}
                     required
                 />
                 <label className="input__float-label" htmlFor="password">

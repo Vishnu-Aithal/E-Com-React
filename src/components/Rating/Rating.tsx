@@ -1,30 +1,16 @@
 import { useState } from "react";
-
-const DisplayStar = ({ type }) => {
-    return (
-        <input
-            type="radio"
-            className={`rating__star ${
-                type === "filled" ? "rating__star--filled" : ""
-            }`}
-            disabled></input>
-    );
-};
-
-const InputStar = ({ checkSetter, hoverSetter }) => {
-    return (
-        <input
-            type="radio"
-            className="rating__star"
-            name="rating"
-            value="1"
-            onClick={() => checkSetter(true)}
-            onMouseEnter={() => hoverSetter(true)}
-            onMouseLeave={() => hoverSetter(false)}></input>
-    );
-};
-
-export const Rating = ({ type, value }) => {
+import { DisplayStar } from "./DisplayStar";
+import { InputStar } from "./InputStar";
+type RatingProps =
+    | {
+          type: "input";
+          value?: undefined;
+      }
+    | {
+          type: "display";
+          value: number;
+      };
+export const Rating: React.FC<RatingProps> = ({ type, value }) => {
     if (type === "input") {
         const [checked, setChecked] = useState(false);
         const [hover, setHover] = useState(false);

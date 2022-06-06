@@ -2,15 +2,12 @@ import { useContext, createContext, useState, PropsWithChildren } from "react";
 import { Toast, ToastTypes } from "types/Toast";
 import { v4 as uuid } from "uuid";
 
-type showToast = ({
-    title,
-    description,
-    type,
-}: {
+type showToast = (newToast: {
     title: string;
     description: string;
     type: ToastTypes;
 }) => void;
+
 type hideToast = (toast: Toast) => void;
 interface ToastContextValue {
     toasts: Toast[];

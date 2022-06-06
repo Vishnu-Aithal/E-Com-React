@@ -1,9 +1,9 @@
 import App from "App";
 import { Route, Routes } from "react-router-dom";
 import { ProtectedAuth, ProtectedRoute } from "./ProtectedRoute";
-import { CartPage } from "routes/CartPage.js";
-import { HomePage } from "routes/HomePage.js";
-import { WishlistPage } from "routes/WishlistPage.js";
+import { CartPage } from "routes/CartPage";
+import { HomePage } from "routes/HomePage";
+import { WishlistPage } from "routes/WishlistPage";
 import { SignInPage } from "routes/SignInPage";
 import { SignUpPage } from "routes/SignUpPage";
 import { ProductsPage } from "routes/ProductsPage";
@@ -23,8 +23,10 @@ export const ConditionalRouter = () => {
                     <Route path="/cart" element={<CartPage />} />
                     <Route path="/wishlist" element={<WishlistPage />} />
                 </Route>
-                <Route path="/sign-in" element={<SignInPage />} />
-                <Route path="/sign-up" element={<SignUpPage />} />
+                <Route element={<ProtectedAuth isLoggedIn={isLoggedIn} />}>
+                    <Route path="/sign-in" element={<SignInPage />} />
+                    <Route path="/sign-up" element={<SignUpPage />} />
+                </Route>
             </Route>
             <Route path="*" element={<NotFound />} />
         </Routes>

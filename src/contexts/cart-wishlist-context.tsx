@@ -12,9 +12,10 @@ import {
 } from "utility-functions/cartWishllistHandler";
 import { CartWishlistActions } from "reducer-functions/CartWishListReducer/CartWishlistActionTypes";
 
+export type CartWishlistDispatch = React.Dispatch<CartWishlistActions>;
 interface CartWishlistContextValue {
     cartWishlistState: CartWishlist;
-    cartWishlistDispatch: React.Dispatch<CartWishlistActions>;
+    cartWishlistDispatch: CartWishlistDispatch;
 }
 
 const CartWishlistContext = createContext<CartWishlistContextValue>({
@@ -29,23 +30,24 @@ const CartWishlistProvider: React.FC<React.PropsWithChildren> = ({
         cartWishlistReducerFunction,
         initialState
     );
-    const {
-        authState: { isLoggedIn, token },
-    } = useAuth();
+    const { authState } = useAuth();
     const { showLoader, hideLoader } = useLoader();
 
     useEffect(() => {
+        console.log("here");
         (async () => {
-            isLoggedIn
-                ? getCartAndWishlist(
-                      token,
-                      cartWishlistDispatch,
-                      showLoader,
-                      hideLoader
-                  )
-                : resetCartCartAndWishlist(cartWishlistDispatch);
+            if (authState.isLoggedIn) {
+                getCartAndWishlist(
+                    authState.token,
+                    cartWishlistDispatch,
+                    showLoader,
+                    hideLoader
+                );
+            } else {
+                resetCartCartAndWishlist(cartWishlistDispatch);
+            }
         })();
-    }, [isLoggedIn]);
+    }, [authState, showLoader, hideLoader]);
     return (
         <CartWishlistContext.Provider
             value={{ cartWishlistState, cartWishlistDispatch }}>

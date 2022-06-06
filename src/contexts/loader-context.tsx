@@ -1,9 +1,10 @@
-import React, { useContext, createContext, useState } from "react";
-
+import React, { useContext, createContext, useState, useCallback } from "react";
+export type ShowLoader = (text: string) => void;
+export type HideLoader = () => void;
 interface LoaderContextValue {
     loader: Loader;
-    showLoader: (text: string) => void;
-    hideLoader: () => void;
+    showLoader: ShowLoader;
+    hideLoader: HideLoader;
 }
 
 interface Loader {
@@ -21,8 +22,14 @@ export const LoaderProvider: React.FC<React.PropsWithChildren> = ({
     children,
 }) => {
     const [loader, setLoader] = useState<Loader>({ state: "hidden", text: "" });
-    const showLoader = (text: string) => setLoader({ state: "visible", text });
-    const hideLoader = () => setLoader({ state: "hidden", text: "" });
+    const showLoader = useCallback(
+        (text: string) => setLoader({ state: "visible", text }),
+        []
+    );
+    const hideLoader = useCallback(
+        () => setLoader({ state: "hidden", text: "" }),
+        []
+    );
     return (
         <LoaderContext.Provider value={{ loader, showLoader, hideLoader }}>
             {children}

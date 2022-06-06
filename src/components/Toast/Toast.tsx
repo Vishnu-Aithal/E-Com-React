@@ -1,15 +1,12 @@
-import { useToast } from "contexts/toast-context";
 import { useState, useEffect } from "react";
+import { Toast as ToastType } from "types/Toast";
 
-const Toast = ({
-    toastData = {
-        _id: "",
-        title: title,
-        description: description,
-        type: "success",
-    },
-    hideToast,
-}) => {
+interface ToastProps {
+    toastData: ToastType;
+    hideToast: (toastData: ToastType) => void;
+}
+
+export const Toast: React.FC<ToastProps> = ({ toastData, hideToast }) => {
     const types = {
         success: "clr-green",
         warning: "clr-yellow",
@@ -42,24 +39,6 @@ const Toast = ({
                 </div>
             </div>
             <div className="toast__body text-md p-2">{description}</div>
-        </div>
-    );
-};
-
-export const ToastContainer = () => {
-    const { toasts, hideToast } = useToast();
-    return (
-        <div
-            className={`toast__container ${
-                toasts.length !== 0 ? "toast__container--show" : ""
-            }`}>
-            {toasts.map((toast) => (
-                <Toast
-                    key={toast._id}
-                    toastData={toast}
-                    hideToast={hideToast}
-                />
-            ))}
         </div>
     );
 };

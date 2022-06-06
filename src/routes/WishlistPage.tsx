@@ -1,9 +1,5 @@
 import "../styles/wishlist.css";
-import { Card } from "../components/Card";
-import {
-    removeFromWishlist,
-    moveToCart,
-} from "utility-functions/cartWishllistHandler";
+import { Card } from "../components/Card/Index";
 import { useCartWishlist } from "contexts/cart-wishlist-context";
 
 export const WishlistPage = () => {
@@ -21,13 +17,7 @@ export const WishlistPage = () => {
                     </h3>
                 )}
                 {wishlist.map((item) => (
-                    <Card
-                        key={item._id}
-                        productData={item}
-                        type="wishlist"
-                        removeFromWishlist={removeFromWishlist}
-                        moveToCart={moveToCart}
-                    />
+                    <Card key={item._id} productData={item} type="wishlist" />
                 ))}
             </div>
         </div>

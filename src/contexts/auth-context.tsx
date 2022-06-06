@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useReducer, Dispatch } from "react";
+import React, { useContext, createContext, useReducer } from "react";
 import { useEffect } from "react";
 import { AuthActionTypes } from "reducer-functions/AuthReducer/AuthActionTypes";
 import {
@@ -9,7 +9,7 @@ import {
 
 interface ContextValue {
     authState: AuthState;
-    authDispatch: Dispatch<AuthActionTypes>;
+    authDispatch: React.Dispatch<AuthActionTypes>;
 }
 
 const AuthContext = createContext<ContextValue>({

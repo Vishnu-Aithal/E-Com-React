@@ -3,9 +3,9 @@ import React from "react";
 interface BadgeProps {
     type: "count" | "status";
     count: number;
-    position: "top-left" | "bottom-left" | "bottom-right" | "top-right";
-    shape: "square" | "pill" | "round";
-    color:
+    position?: "top-left" | "bottom-left" | "bottom-right" | "top-right";
+    shape?: "square" | "pill" | "round";
+    color?:
         | "white"
         | "black"
         | "primary"
@@ -26,7 +26,7 @@ export const Badge: React.FC<BadgeProps> = ({
     count,
     position,
     shape,
-    color,
+    color = "secondary",
 }) => {
     const positions = {
         "top-left": "badge--top-left",
@@ -46,8 +46,8 @@ export const Badge: React.FC<BadgeProps> = ({
     return (
         <span
             className={`badge ${types[type] ?? "badge--count"} ${
-                positions[position] ?? ""
-            } ${shapes[shape] ?? "br-4"} bg-${color}`}
+                position ? positions[position] : ""
+            } ${shape ? shapes[shape] : "br-4"} bg-${color}`}
             data-count={count}></span>
     );
 };

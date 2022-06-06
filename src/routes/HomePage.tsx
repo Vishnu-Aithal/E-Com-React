@@ -1,13 +1,14 @@
 import "styles/homepage.css";
-import { Hero } from "../components/Hero";
+import { Hero } from "../components/Layout/Hero";
 import { HighlightCategory } from "../components/HighlightCategory";
 import heroImage from "../assets/images/wardrobe.jpg";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import { Category } from "types/Category";
 
-export const HomePage = () => {
-    const [categories, setCategories] = useState([]);
+export const HomePage: React.FC = () => {
+    const [categories, setCategories] = useState<Category[]>([]);
     useEffect(() => {
         (async () => {
             try {
@@ -22,8 +23,11 @@ export const HomePage = () => {
         <div className="homepage-content">
             <Hero backgroundImage={heroImage} />
             <div className="highlight">
-                {categories.map((category, index) => (
-                    <HighlightCategory key={index} categoryData={category} />
+                {categories.map((category) => (
+                    <HighlightCategory
+                        key={category._id}
+                        categoryData={category}
+                    />
                 ))}
             </div>
         </div>

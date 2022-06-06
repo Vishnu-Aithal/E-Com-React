@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom";
-export const Hero = ({
+interface HeroProps {
+    backgroundImage: string;
+}
+export const Hero: React.FC<HeroProps> = ({
     backgroundImage = "https://picsum.photos/1920/1080",
 }) => {
     const navigate = useNavigate();
@@ -11,7 +14,6 @@ export const Hero = ({
                 Stock Your Wardrobe Now!
             </h1>
             <button
-                href="/pages/product-listing.html"
                 className="btn--link btn--lg btn--primary br-3 text-lg shadow-md-hover"
                 onClick={() => navigate("/products")}>
                 Shop Now

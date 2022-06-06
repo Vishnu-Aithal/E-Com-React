@@ -2,19 +2,30 @@ import { signInHandler } from "utility-functions/authHandler";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "contexts/auth-context";
 import { useLoader } from "contexts/loader-context";
-export const SignInForm = () => {
+import React, { useState } from "react";
+
+interface LocationState {
+    from: { pathname: string };
+}
+
+export const SignInForm: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const locationState = location.state as LocationState;
     const { authDispatch } = useAuth();
     const { showLoader, hideLoader } = useLoader();
+    const [formDetails, setFormDetails] = useState({
+        email: "",
+        password: "",
+    });
     return (
         <>
             <form
-                onSubmit={async (e) => {
+                onSubmit={async (e: React.FormEvent) => {
                     e.preventDefault();
                     const response = await signInHandler(
-                        e.target.email.value,
-                        e.target.password.value,
+                        formDetails.email,
+                        formDetails.password,
                         showLoader,
                         hideLoader
                     );
@@ -24,7 +35,7 @@ export const SignInForm = () => {
                             payload: response,
                         });
                         if (location.state) {
-                            navigate(location.state.from);
+                            navigate(locationState.from.pathname);
                         } else {
                             navigate("/products");
                         }
@@ -34,6 +45,13 @@ export const SignInForm = () => {
                 <h2 className="heading-md text-center mb-4">Sign In</h2>
                 <div className="input">
                     <input
+                        value={formDetails.email}
+                        onChange={(e) =>
+                            setFormDetails((formDetails) => ({
+                                ...formDetails,
+                                name: e.target.value,
+                            }))
+                        }
                         className="input__field"
                         type="email"
                         name="email"
@@ -48,12 +66,19 @@ export const SignInForm = () => {
                 </div>
                 <div className="input">
                     <input
+                        value={formDetails.password}
+                        onChange={(e) =>
+                            setFormDetails((formDetails) => ({
+                                ...formDetails,
+                                password: e.target.value,
+                            }))
+                        }
                         className="input__field"
                         type="password"
                         name="password"
                         id="password"
                         placeholder="Enter Password"
-                        minLength="8"
+                        minLength={8}
                         required
                     />
                     <label className="input__float-label" htmlFor="password">
@@ -61,9 +86,6 @@ export const SignInForm = () => {
                     </label>
                     <span className="input__required-text"></span>
                 </div>
-                <a className="d-inline-block text-end text-sm w-100p" href="">
-                    Forgot password?
-                </a>
                 <div className="input ms-1">
                     <input type="checkbox" className="" name="tandc" id="" />
                     <label className="text-sm" htmlFor="">
@@ -93,7 +115,7 @@ export const SignInForm = () => {
                                 payload: response,
                             });
                             if (location.state) {
-                                navigate(location.state.from);
+                                navigate(locationState.from.pathname);
                             } else {
                                 navigate("/products");
                             }
