@@ -1,11 +1,7 @@
 import { useNavigate } from "react-router-dom";
-export const HighlightCategory = ({
-    categoryData = {
-        highlight: "New Arrivals",
-        title: "Title",
-        description: "some description",
-        image: "https://picsum.photos/800/600",
-    },
+import { Category } from "types/Category";
+export const HighlightCategory: React.FC<{ categoryData: Category }> = ({
+    categoryData,
 }) => {
     const navigate = useNavigate();
     return (

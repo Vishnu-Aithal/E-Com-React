@@ -10,14 +10,14 @@ import formalSetImage from "assets/images/formal-collection.jpg";
 export const categories = [
     {
         _id: uuid(),
-        categoryName: "Formal Collection",
+        title: "Formal Collection",
         highlight: "New Arrivals!",
         description: "Check Out the Best Formal collection Now",
         image: casualSetImage,
     },
     {
         _id: uuid(),
-        categoryName: "Casual Collection",
+        title: "Casual Collection",
         highlight: "New Arrivals!",
         description: "Check Out the Best Casual collection Now",
         image: formalSetImage,
