@@ -1,6 +1,11 @@
 import { useToast } from "contexts/toast-context";
+import { CartProduct } from "types/Product";
 
-export const CartInfo = ({ cart = [] }) => {
+interface CartInfoProps {
+    cart: CartProduct[];
+}
+
+export const CartInfo: React.FC<CartInfoProps> = ({ cart = [] }) => {
     const cartTotal = cart.reduce(
         (sum, { price, qty }) => sum + parseFloat(price) * qty,
         0
