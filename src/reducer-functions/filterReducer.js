@@ -8,15 +8,31 @@ export const initialState = {
         brand: [],
         type: [],
         category: [],
-        rating: undefined,
-        priceRange: undefined,
+        rating: null,
+        priceRange: null,
+        searchTerm: "",
     },
-    sorters: { byPrice: undefined, byRating: undefined },
+    sorters: { byPrice: null, byRating: null },
 };
 
 export const filterReducerFunction = (filterState, { type, payload }) => {
     const processor = ({ data: { fromServer }, filters, sorters }) => {
         let processed = [...fromServer];
+        if (filters.searchTerm) {
+            const searchTermsArray = filters.searchTerm
+                .split(" ")
+                .filter((_) => _ !== "");
+            processed = processed.filter(({ title }) => {
+                const titleWithoutSpaces = title
+                    .replaceAll(" ", "")
+                    .toLowerCase();
+
+                for (const word of searchTermsArray) {
+                    if (!titleWithoutSpaces.includes(word)) return false;
+                }
+                return true;
+            });
+        }
         if (filters.priceRange) {
             processed = processed.filter(
                 ({ price }) => parseInt(price) <= filters.priceRange
@@ -84,6 +100,11 @@ export const filterReducerFunction = (filterState, { type, payload }) => {
             return {
                 ...filterState,
                 data: { ...data, processed: processor(filterState) },
+            };
+        case "SET_SEARCH_TERM":
+            return {
+                ...filterState,
+                filters: { ...filters, searchTerm: payload },
             };
         case "SET_PRICE_RANGE":
             return {

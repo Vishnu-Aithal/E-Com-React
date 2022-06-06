@@ -1,10 +1,12 @@
 import { Badge } from "./Badge";
-import { NavLink, Navigate, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useAuth } from "contexts/auth-context";
 import { signOutHandler } from "utility-functions/authHandler";
 import { useCartWishlist } from "contexts/cart-wishlist-context";
 import { useLoader } from "contexts/loader-context";
+import { useFilter } from "contexts/filter-context";
+
 export const TopNav = ({}) => {
     const [collapsed, setCollapsed] = useState(true);
     const {
@@ -16,8 +18,19 @@ export const TopNav = ({}) => {
     const {
         cartWishlistState: { cart, wishlist },
     } = useCartWishlist();
+    const { filterDispatch } = useFilter();
     const { showLoader, hideLoader } = useLoader();
     const navigate = useNavigate();
+    const location = useLocation();
+    const [searchTerm, setSearchTerm] = useState("");
+    useEffect(
+        () => filterDispatch({ type: "SET_SEARCH_TERM", payload: searchTerm }),
+        [searchTerm]
+    );
+    useEffect(
+        () => location.pathname !== "/products" && setSearchTerm(""),
+        [location]
+    );
     return (
         <nav className="nav-bar bg-primary shadow-sm">
             <div className="nav-bar__header heading-md text-bold clr-white me-2">
@@ -30,10 +43,13 @@ export const TopNav = ({}) => {
                     className="nav-bar__search-input p-2 br-3"
                     type="search"
                     placeholder="Search"
+                    value={searchTerm}
+                    onChange={(e) => {
+                        location.pathname !== "/products" &&
+                            navigate("/products");
+                        setSearchTerm(e.target.value);
+                    }}
                 />
-                <div className="nav-bar__search-btn btn btn--icon">
-                    <i className="fas fa-search"></i>
-                </div>
             </div>
             <button
                 className={`nav-bar__toggle btn btn--icon-lg clr-white br-2 ms-2 ${
