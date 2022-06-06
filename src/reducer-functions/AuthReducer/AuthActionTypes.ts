@@ -7,7 +7,6 @@ interface Login {
 }
 interface Logout {
     type: "LOGOUT";
-    payload?: undefined;
 }
 
 export type AuthActionTypes = Login | Logout;

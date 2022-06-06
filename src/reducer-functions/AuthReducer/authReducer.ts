@@ -1,10 +1,17 @@
 import { AuthActionTypes } from "./AuthActionTypes";
 
-export interface AuthState {
-    isLoggedIn: boolean;
-    userId: string | null;
-    token: string | null;
+interface LoggedInState {
+    isLoggedIn: true;
+    userId: string;
+    token: string;
 }
+
+interface LoggedOutState {
+    isLoggedIn: false;
+    userId: null;
+    token: null;
+}
+export type AuthState = LoggedInState | LoggedOutState;
 
 export const initialState: AuthState = {
     isLoggedIn: false,
@@ -14,15 +21,15 @@ export const initialState: AuthState = {
 
 export const authReducerFunction = (
     state: AuthState,
-    { type, payload }: AuthActionTypes
-) => {
-    switch (type) {
+    action: AuthActionTypes
+): AuthState => {
+    switch (action.type) {
         case "LOGIN":
             return {
                 ...state,
                 isLoggedIn: true,
-                userId: payload.userId,
-                token: payload.token,
+                userId: action.payload.userId,
+                token: action.payload.token,
             };
         case "LOGOUT":
             return {

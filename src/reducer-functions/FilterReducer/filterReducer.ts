@@ -1,5 +1,6 @@
 import { Product } from "types/Product";
 import { FilterActions } from "./FilterActionTypes";
+import { processor } from "./processor";
 
 export interface FilterState {
     data: {
@@ -40,75 +41,9 @@ export const initialState: FilterState = {
 
 export const filterReducerFunction = (
     filterState: FilterState,
-    { type, payload }: FilterActions
+    action: FilterActions
 ) => {
-    const processor = ({
-        data: { fromServer },
-        filters,
-        sorters,
-    }: FilterState) => {
-        let processed = [...fromServer];
-        if (filters.searchTerm) {
-            const searchTermsArray = filters.searchTerm
-                .split(" ")
-                .filter((_) => _ !== "");
-            processed = processed.filter(({ title }) => {
-                const titleWithoutSpaces = title
-                    .replaceAll(" ", "")
-                    .toLowerCase();
-
-                for (const word of searchTermsArray) {
-                    if (!titleWithoutSpaces.includes(word)) return false;
-                }
-                return true;
-            });
-        }
-        if (filters.priceRange !== null) {
-            processed = processed.filter(
-                ({ price }) => parseInt(price) <= filters.priceRange!
-            );
-        }
-        if (filters.rating !== null) {
-            processed = processed.filter(
-                ({ rating }) => rating >= filters.rating!
-            );
-        }
-        if (!filters.showOutOfStock) {
-            processed = processed.filter(({ outOfStock }) => !outOfStock);
-        }
-        if (filters.category.length) {
-            processed = processed.filter(({ category }) =>
-                filters.category.includes(category)
-            );
-        }
-        if (filters.brand.length) {
-            processed = processed.filter(({ brand }) =>
-                filters.brand.includes(brand)
-            );
-        }
-        if (filters.type.length) {
-            processed = processed.filter(({ type }) =>
-                filters.type.includes(type)
-            );
-        }
-
-        if (sorters.byRating) {
-            processed = processed.sort((product1, product2) =>
-                sorters.byRating === "high-to-low"
-                    ? product2.rating - product1.rating
-                    : product1.rating - product2.rating
-            );
-        }
-        if (sorters.byPrice) {
-            processed = processed.sort((product1, product2) =>
-                sorters.byPrice === "high-to-low"
-                    ? +product2.price - +product1.price
-                    : +product1.price - +product2.price
-            );
-        }
-        return processed;
-    };
-
+    const { type } = action;
     const removeFromArray = (element: string, array: string[]) => {
         const newArray = [...array];
         newArray.splice(array.indexOf(element), 1);
@@ -122,8 +57,8 @@ export const filterReducerFunction = (
             return {
                 ...filterState,
                 data: {
-                    fromServer: payload,
-                    processed: payload,
+                    fromServer: action.payload,
+                    processed: action.payload,
                 },
             };
         case "PROCESS":
@@ -134,17 +69,17 @@ export const filterReducerFunction = (
         case "SET_SEARCH_TERM":
             return {
                 ...filterState,
-                filters: { ...filters, searchTerm: payload },
+                filters: { ...filters, searchTerm: action.payload },
             };
         case "SET_PRICE_RANGE":
             return {
                 ...filterState,
-                filters: { ...filters, priceRange: parseInt(payload) },
+                filters: { ...filters, priceRange: parseInt(action.payload) },
             };
         case "SET_RATING":
             return {
                 ...filterState,
-                filters: { ...filters, rating: payload },
+                filters: { ...filters, rating: action.payload },
             };
         case "SHOW_OUT_OF_STOCK":
             return {
@@ -159,9 +94,9 @@ export const filterReducerFunction = (
                 ...filterState,
                 filters: {
                     ...filters,
-                    category: filters.category.includes(payload)
-                        ? removeFromArray(payload, filters.category)
-                        : [...filters.category, payload],
+                    category: filters.category.includes(action.payload)
+                        ? removeFromArray(action.payload, filters.category)
+                        : [...filters.category, action.payload],
                 },
             };
         case "BRAND":
@@ -169,9 +104,9 @@ export const filterReducerFunction = (
                 ...filterState,
                 filters: {
                     ...filters,
-                    brand: filters.brand.includes(payload)
-                        ? removeFromArray(payload, filters.brand)
-                        : [...filters.brand, payload],
+                    brand: filters.brand.includes(action.payload)
+                        ? removeFromArray(action.payload, filters.brand)
+                        : [...filters.brand, action.payload],
                 },
             };
         case "TYPE":
@@ -179,20 +114,20 @@ export const filterReducerFunction = (
                 ...filterState,
                 filters: {
                     ...filters,
-                    type: filters.type.includes(payload)
-                        ? removeFromArray(payload, filters.type)
-                        : [...filters.type, payload],
+                    type: filters.type.includes(action.payload)
+                        ? removeFromArray(action.payload, filters.type)
+                        : [...filters.type, action.payload],
                 },
             };
         case "SORT_BY_PRICE":
             return {
                 ...filterState,
-                sorters: { ...sorters, byPrice: payload },
+                sorters: { ...sorters, byPrice: action.payload },
             };
         case "SORT_BY_RATING":
             return {
                 ...filterState,
-                sorters: { ...sorters, byRating: payload },
+                sorters: { ...sorters, byRating: action.payload },
             };
         case "CLEAR_FILTERS":
             return {

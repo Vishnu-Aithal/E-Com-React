@@ -5,9 +5,8 @@ interface LoadData {
     payload: Product[];
 }
 
-interface UndefinedPayloadActions {
-    type: "PROCESS" | "CLEAR_FILTERS";
-    payload?: undefined;
+interface NoPayloadActions {
+    type: "PROCESS" | "CLEAR_FILTERS" | "SHOW_OUT_OF_STOCK";
 }
 interface StringPayloadActions {
     type: "SET_SEARCH_TERM" | "SET_PRICE_RANGE" | "CATEGORY" | "BRAND" | "TYPE";
@@ -19,11 +18,6 @@ interface SetRating {
     payload: number;
 }
 
-interface ShowOutOfStock {
-    type: "SHOW_OUT_OF_STOCK";
-    payload?: undefined;
-}
-
 interface SortPayloadActions {
     type: "SORT_BY_RATING" | "SORT_BY_PRICE";
     payload: "high-to-low" | "low-to-high";
@@ -31,8 +25,7 @@ interface SortPayloadActions {
 
 export type FilterActions =
     | LoadData
-    | UndefinedPayloadActions
+    | NoPayloadActions
     | StringPayloadActions
     | SetRating
-    | ShowOutOfStock
     | SortPayloadActions;
