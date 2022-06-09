@@ -19,19 +19,27 @@ export const SignUpForm = () => {
         <form
             onSubmit={async (e) => {
                 e.preventDefault();
-                const response = await signUpHandler(
+                const error = await signUpHandler(
                     formDetails.email,
                     formDetails.password,
                     formDetails.firstName,
                     formDetails.lastName,
                     showLoader,
                     hideLoader,
-                    showToast
+                    authDispatch
                 );
-                if (response) {
-                    authDispatch({
-                        type: "LOGIN",
-                        payload: response,
+                if (error) {
+                    showToast({
+                        title: "Login Failed",
+                        description:
+                            "Failed to Sign Up, Try Again after sometime",
+                        type: "error",
+                    });
+                } else {
+                    showToast({
+                        title: "Signed Up",
+                        description: "Sign Up Succes",
+                        type: "success",
                     });
                     navigate("/");
                 }

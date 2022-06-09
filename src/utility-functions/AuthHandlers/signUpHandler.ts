@@ -1,6 +1,7 @@
 import axios from "axios";
 import { HideLoader, ShowLoader } from "contexts/loader-context";
-import { ShowToast } from "contexts/toast-context";
+import React from "react";
+import { AuthActionTypes } from "reducer-functions/AuthReducer/AuthActionTypes";
 
 export const signUpHandler = async (
     email: string,
@@ -9,7 +10,7 @@ export const signUpHandler = async (
     lastName: string,
     showLoader: ShowLoader,
     hideLoader: HideLoader,
-    showToast: ShowToast
+    dispatch: React.Dispatch<AuthActionTypes>
 ) => {
     showLoader("Signing Up");
     try {
@@ -24,19 +25,13 @@ export const signUpHandler = async (
             const userId = response.data.createdUser._id;
             // localStorage.setItem("token", token);
             // localStorage.setItem("userId", userId);
-            showToast({
-                title: "Signed Up",
-                description: "Sign Up Succes",
-                type: "success",
+            dispatch({
+                type: "LOGIN",
+                payload: { token, userId },
             });
-            return { token, userId };
         }
-    } catch (error: any) {
-        showToast({
-            title: "Login Failed",
-            description: error.message,
-            type: "error",
-        });
+    } catch (error) {
+        return error;
     } finally {
         hideLoader();
     }

@@ -1,13 +1,14 @@
 import axios from "axios";
 import { HideLoader, ShowLoader } from "contexts/loader-context";
-import { ShowToast } from "contexts/toast-context";
+import React from "react";
+import { AuthActionTypes } from "reducer-functions/AuthReducer/AuthActionTypes";
 
 export const signInHandler = async (
     email: string,
     password: string,
     showLoader: ShowLoader,
     hideLoader: HideLoader,
-    showToast: ShowToast,
+    dispatch: React.Dispatch<AuthActionTypes>,
     rememberMe: boolean
 ) => {
     showLoader("Signing In");
@@ -16,8 +17,8 @@ export const signInHandler = async (
             status,
             data: { encodedToken, foundUser },
         } = await axios.post("/api/auth/login", {
-            email: email,
-            password: password,
+            email,
+            password,
         });
         if (status === 200) {
             const token = encodedToken;
@@ -26,19 +27,13 @@ export const signInHandler = async (
                 localStorage.setItem("token", token);
                 localStorage.setItem("userId", userId);
             }
-            showToast({
-                title: "Login Succes",
-                description: "You have logged in successfully",
-                type: "success",
+            dispatch({
+                type: "LOGIN",
+                payload: { token, userId },
             });
-            return { token, userId };
         }
-    } catch (error: any) {
-        showToast({
-            title: "Login Failed",
-            description: error.message,
-            type: "error",
-        });
+    } catch (error) {
+        return error;
     } finally {
         hideLoader();
     }

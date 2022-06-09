@@ -21,31 +21,43 @@ export const SignInForm: React.FC = () => {
         password: "",
     });
     const [rememberMe, setRememberMe] = useState(false);
+    const handleError = (error: unknown) => {
+        if (error) {
+            showToast({
+                title: "Login Failed",
+                description: "Could not Log in, Try Agin after some time",
+                type: "error",
+            });
+        } else {
+            showToast({
+                title: "Login Succes",
+                description: "You have logged in successfully",
+                type: "success",
+            });
+
+            if (location.state) {
+                navigate(locationState.from.pathname);
+            } else {
+                navigate("/products");
+            }
+        }
+    };
+
     return (
         <>
             <form
                 onSubmit={async (e: React.FormEvent) => {
                     e.preventDefault();
                     setFormDetails({ email: "", password: "" });
-                    const response = await signInHandler(
+                    const error = await signInHandler(
                         formDetails.email,
                         formDetails.password,
                         showLoader,
                         hideLoader,
-                        showToast,
+                        authDispatch,
                         rememberMe
                     );
-                    if (response) {
-                        authDispatch({
-                            type: "LOGIN",
-                            payload: response,
-                        });
-                        if (location.state) {
-                            navigate(locationState.from.pathname);
-                        } else {
-                            navigate("/products");
-                        }
-                    }
+                    handleError(error);
                 }}
                 className="p-4 w-fit mx-auto br-2 mt-6">
                 <h2 className="heading-md text-center mb-4">Sign In</h2>
@@ -117,26 +129,15 @@ export const SignInForm: React.FC = () => {
                     className="btn btn--primary br-1 mt-2 "
                     type="button"
                     onClick={async () => {
-                        const response = await signInHandler(
+                        const error = await signInHandler(
                             "testuser@gmail.com",
                             "testuser@123",
                             showLoader,
                             hideLoader,
-                            showToast,
+                            authDispatch,
                             true
                         );
-
-                        if (response) {
-                            authDispatch({
-                                type: "LOGIN",
-                                payload: response,
-                            });
-                            if (location.state) {
-                                navigate(locationState.from.pathname);
-                            } else {
-                                navigate("/products");
-                            }
-                        }
+                        handleError(error);
                     }}>
                     Sign In Demo
                 </button>
