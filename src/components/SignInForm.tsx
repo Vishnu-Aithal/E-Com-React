@@ -103,8 +103,8 @@ export const SignInForm: React.FC = () => {
                     className="btn btn--primary br-1 mt-2 "
                     onClick={async () => {
                         const response = await signInHandler(
-                            "adarshbalika@gmail.com",
-                            "adarshbalika",
+                            "testuser@gmail.com",
+                            "testuser@123",
                             showLoader,
                             hideLoader
                         );
