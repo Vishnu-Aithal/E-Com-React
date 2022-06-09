@@ -6,10 +6,8 @@ import {
 } from "reducer-functions/CartWishListReducer/cartWishlistReducer";
 import { useAuth } from "./auth-context";
 import { useLoader } from "./loader-context";
-import {
-    getCartAndWishlist,
-    resetCartCartAndWishlist,
-} from "utility-functions/cartWishllistHandler";
+import { resetCartCartAndWishlist } from "utility-functions/CartAndWishlistHandlers/resetCartCartAndWishlist";
+import { getCartAndWishlist } from "utility-functions/CartAndWishlistHandlers/getCartAndWishlist";
 import { CartWishlistActions } from "reducer-functions/CartWishListReducer/CartWishlistActionTypes";
 
 export type CartWishlistDispatch = React.Dispatch<CartWishlistActions>;

@@ -3,16 +3,14 @@ import { useAuth } from "contexts/auth-context";
 import { useLoader } from "contexts/loader-context";
 import { CardBadge } from "./CardBadge";
 import { CardDismiss } from "./CardDismiss";
-import {
-    addToCart,
-    addToWishlist,
-    moveToCart,
-    moveToWishlist,
-    removeFromWishlist,
-    decreaseCartQty,
-    increaseCartQty,
-    removeFromCart,
-} from "utility-functions/cartWishllistHandler";
+import { moveToWishlist } from "utility-functions/CartAndWishlistHandlers/moveToWishlist";
+import { moveToCart } from "utility-functions/CartAndWishlistHandlers/moveToCart";
+import { removeFromWishlist } from "utility-functions/CartAndWishlistHandlers/removeFromWishlist";
+import { addToWishlist } from "utility-functions/CartAndWishlistHandlers/addToWishlist";
+import { removeFromCart } from "utility-functions/CartAndWishlistHandlers/removeFromCart";
+import { decreaseCartQty } from "utility-functions/CartAndWishlistHandlers/decreaseCartQty";
+import { increaseCartQty } from "utility-functions/CartAndWishlistHandlers/increaseCartQty";
+import { addToCart } from "utility-functions/CartAndWishlistHandlers/addToCart";
 import { OutOfStockOverlay } from "./OutOfStockOverLay";
 import { CardBody } from "./CardBody";
 import { Product } from "types/Product";

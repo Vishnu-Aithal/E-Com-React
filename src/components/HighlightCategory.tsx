@@ -22,7 +22,9 @@ export const HighlightCategory: React.FC<{ categoryData: Category }> = ({
                 </p>
                 <p>{categoryData.description}</p>
                 <button
-                    onClick={() => navigate("/products")}
+                    onClick={() =>
+                        navigate(`/products?category=${categoryData.name}`)
+                    }
                     className="mt-3 btn btn--link btn--secondary text-center">
                     Browse Now
                 </button>

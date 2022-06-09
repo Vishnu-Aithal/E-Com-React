@@ -5,7 +5,11 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useFilter } from "contexts/filter-context";
 import { useCartWishlist } from "contexts/cart-wishlist-context";
-import { inCart, inWishlist } from "utility-functions/cartWishllistHandler";
+import {
+    inCart,
+    inWishlist,
+} from "utility-functions/CartAndWishlistHandlers/inCart";
+import { useSearchParams } from "react-router-dom";
 
 export const ProductsPage = () => {
     const {
@@ -17,6 +21,7 @@ export const ProductsPage = () => {
     const {
         cartWishlistState: { cart, wishlist },
     } = useCartWishlist();
+    const [searchParams, setSearchParams] = useSearchParams();
     useEffect(() => {
         (async () => {
             try {
@@ -25,11 +30,21 @@ export const ProductsPage = () => {
                     type: "LOAD_DATA",
                     payload: response.data.products,
                 });
-            } catch (error) {
-                console.log(error);
-            }
+            } catch (error) {}
         })();
     }, [filterDispatch]);
+
+    useEffect(() => {
+        const categoryQuery = searchParams.get("category");
+        if (categoryQuery && products.length) {
+            filterDispatch({
+                type: "CATEGORY",
+                payload: categoryQuery,
+            });
+            setSearchParams({}, { replace: true });
+        }
+    }, [searchParams, filterDispatch, products, setSearchParams]);
+
     return (
         <div className="product-content">
             <FilterOptions />

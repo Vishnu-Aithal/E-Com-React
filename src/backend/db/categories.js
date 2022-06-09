@@ -10,6 +10,7 @@ import formalSetImage from "assets/images/formal-collection.jpg";
 export const categories = [
     {
         _id: uuid(),
+        name: "Formal",
         title: "Formal Collection",
         highlight: "New Arrivals!",
         description: "Check Out the Best Formal collection Now",
@@ -17,6 +18,7 @@ export const categories = [
     },
     {
         _id: uuid(),
+        name: "Casual",
         title: "Casual Collection",
         highlight: "New Arrivals!",
         description: "Check Out the Best Casual collection Now",

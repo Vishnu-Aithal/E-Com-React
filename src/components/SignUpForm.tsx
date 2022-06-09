@@ -1,12 +1,14 @@
-import { signUpHandler } from "utility-functions/authHandler";
+import { signUpHandler } from "utility-functions/AuthHandlers/signUpHandler";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "contexts/auth-context";
 import { useLoader } from "contexts/loader-context";
 import { useState } from "react";
+import { useToast } from "contexts/toast-context";
 export const SignUpForm = () => {
     const { authDispatch } = useAuth();
     const navigate = useNavigate();
     const { showLoader, hideLoader } = useLoader();
+    const { showToast } = useToast();
     const [formDetails, setFormDetails] = useState({
         email: "",
         password: "",
@@ -23,7 +25,8 @@ export const SignUpForm = () => {
                     formDetails.firstName,
                     formDetails.lastName,
                     showLoader,
-                    hideLoader
+                    hideLoader,
+                    showToast
                 );
                 if (response) {
                     authDispatch({

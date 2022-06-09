@@ -1,4 +1,5 @@
 import { useAuth } from "contexts/auth-context";
+import { useToast } from "contexts/toast-context";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CardTypes } from "./Index";
 
@@ -7,13 +8,13 @@ interface CardFooterProps {
     inCart?: boolean;
     inWishlist?: boolean;
     cartQuantity?: number;
-    addToCartHandler: () => void;
-    moveToCartHandler: () => void;
-    addToWishlistHandler: () => void;
-    moveToWishlistHandler: () => void;
-    increaseCartQtyHandler: () => void;
-    decreaseCartQtyHandler: () => void;
-    removeFromWishllistHandler: () => void;
+    addToCartHandler: () => Promise<unknown>;
+    moveToCartHandler: () => Promise<unknown>;
+    addToWishlistHandler: () => Promise<unknown>;
+    moveToWishlistHandler: () => Promise<unknown>;
+    increaseCartQtyHandler: () => Promise<unknown>;
+    decreaseCartQtyHandler: () => Promise<unknown>;
+    removeFromWishllistHandler: () => Promise<unknown>;
 }
 
 export const CardFooter: React.FC<CardFooterProps> = (props) => {
@@ -32,9 +33,31 @@ export const CardFooter: React.FC<CardFooterProps> = (props) => {
     } = props;
     const navigate = useNavigate();
     const location = useLocation();
+    const { showToast } = useToast();
     const {
         authState: { isLoggedIn },
     } = useAuth();
+
+    const handleEvent = async (
+        callback: () => {},
+        successMessage: string,
+        errorMessage: string
+    ) => {
+        if (isLoggedIn) {
+            const error = await callback();
+            if (error) {
+                showToast({ title: errorMessage, type: "error" });
+            } else {
+                showToast({ title: successMessage, type: "success" });
+            }
+        } else {
+            navigate("/sign-in", {
+                state: {
+                    from: location.pathname,
+                },
+            });
+        }
+    };
     return (
         <>
             {type === "listing" && (
@@ -52,26 +75,22 @@ export const CardFooter: React.FC<CardFooterProps> = (props) => {
                                     <button
                                         className="btn btn--secondary w-100p"
                                         onClick={() =>
-                                            isLoggedIn
-                                                ? moveToCartHandler()
-                                                : navigate("/sign-in", {
-                                                      state: {
-                                                          from: location.pathname,
-                                                      },
-                                                  })
+                                            handleEvent(
+                                                moveToCartHandler,
+                                                "Moved To Cart",
+                                                "Failed to move to cart"
+                                            )
                                         }>
                                         Move to Cart
                                     </button>
                                     <button
                                         className="btn btn--icon clr-red ms-1"
                                         onClick={() =>
-                                            isLoggedIn
-                                                ? removeFromWishllistHandler()
-                                                : navigate("/sign-in", {
-                                                      state: {
-                                                          from: location.pathname,
-                                                      },
-                                                  })
+                                            handleEvent(
+                                                removeFromWishllistHandler,
+                                                "Removed From Wishlist",
+                                                "Failed to Remove From Wishlist"
+                                            )
                                         }>
                                         <i className="fas fa-heart"></i>
                                     </button>
@@ -81,26 +100,22 @@ export const CardFooter: React.FC<CardFooterProps> = (props) => {
                                     <button
                                         className="btn btn--primary w-100p"
                                         onClick={() =>
-                                            isLoggedIn
-                                                ? addToCartHandler()
-                                                : navigate("/sign-in", {
-                                                      state: {
-                                                          from: location.pathname,
-                                                      },
-                                                  })
+                                            handleEvent(
+                                                addToCartHandler,
+                                                "Added to Cart",
+                                                "Failed to add to cart"
+                                            )
                                         }>
                                         Add to Cart
                                     </button>
                                     <button
                                         className="btn btn--icon clr-red ms-1"
                                         onClick={() =>
-                                            isLoggedIn
-                                                ? addToWishlistHandler()
-                                                : navigate("/sign-in", {
-                                                      state: {
-                                                          from: location.pathname,
-                                                      },
-                                                  })
+                                            handleEvent(
+                                                addToWishlistHandler,
+                                                "Added to Wishlist",
+                                                "Failed to Add to Wishlist"
+                                            )
                                         }>
                                         <i className="far fa-heart"></i>
                                     </button>
@@ -115,11 +130,11 @@ export const CardFooter: React.FC<CardFooterProps> = (props) => {
                     <button
                         className="btn btn--secondary mx-1 w-100p"
                         onClick={() =>
-                            isLoggedIn
-                                ? moveToCartHandler()
-                                : navigate("/sign-in", {
-                                      state: { from: location.pathname },
-                                  })
+                            handleEvent(
+                                moveToCartHandler,
+                                "Moved to Cart",
+                                "Failed to Move to Cart"
+                            )
                         }>
                         Move to Cart
                     </button>
@@ -130,11 +145,11 @@ export const CardFooter: React.FC<CardFooterProps> = (props) => {
                     <button
                         className="btn btn--outline-secondary mx-1"
                         onClick={() =>
-                            isLoggedIn
-                                ? moveToWishlistHandler()
-                                : navigate("/sign-in", {
-                                      state: { from: location.pathname },
-                                  })
+                            handleEvent(
+                                moveToWishlistHandler,
+                                "Moved to Wishlist",
+                                "Failed to Move to Wishlist"
+                            )
                         }>
                         Move to Wishlist
                     </button>
@@ -143,11 +158,11 @@ export const CardFooter: React.FC<CardFooterProps> = (props) => {
                             className="btn btn--icon"
                             disabled={cartQuantity ? cartQuantity <= 1 : true}
                             onClick={() =>
-                                isLoggedIn
-                                    ? decreaseCartQtyHandler()
-                                    : navigate("/sign-in", {
-                                          state: { from: location.pathname },
-                                      })
+                                handleEvent(
+                                    decreaseCartQtyHandler,
+                                    "Decreased Quantity",
+                                    "Failed to Decrease Qunatity"
+                                )
                             }>
                             -
                         </button>
@@ -155,11 +170,11 @@ export const CardFooter: React.FC<CardFooterProps> = (props) => {
                         <button
                             className="btn btn--icon"
                             onClick={() =>
-                                isLoggedIn
-                                    ? increaseCartQtyHandler()
-                                    : navigate("/sign-in", {
-                                          state: { from: location.pathname },
-                                      })
+                                handleEvent(
+                                    increaseCartQtyHandler,
+                                    "Increased Quantity",
+                                    "Failed to Increase Quantity"
+                                )
                             }>
                             +
                         </button>

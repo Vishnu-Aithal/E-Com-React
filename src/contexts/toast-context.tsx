@@ -1,17 +1,23 @@
-import { useContext, createContext, useState, PropsWithChildren } from "react";
+import {
+    useContext,
+    createContext,
+    useState,
+    PropsWithChildren,
+    useCallback,
+} from "react";
 import { Toast, ToastTypes } from "types/Toast";
 import { v4 as uuid } from "uuid";
 
-type showToast = (newToast: {
+export type ShowToast = (newToast: {
     title: string;
-    description: string;
+    description?: string;
     type: ToastTypes;
 }) => void;
 
 type hideToast = (toast: Toast) => void;
 interface ToastContextValue {
     toasts: Toast[];
-    showToast: showToast;
+    showToast: ShowToast;
     hideToast: hideToast;
 }
 
@@ -23,12 +29,12 @@ const ToastContext = createContext<ToastContextValue>({
 
 export const ToastProvider: React.FC<PropsWithChildren> = ({ children }) => {
     const [toasts, setToasts] = useState<Toast[]>([]);
-    const showToast: showToast = ({ title, description, type }) => {
+    const showToast: ShowToast = useCallback(({ title, description, type }) => {
         const dateTime = Date().substring(0, 25);
         const newToast: Toast = {
             _id: uuid(),
             title,
-            description,
+            description: description || "",
             type,
             dateTime,
         };
@@ -40,11 +46,14 @@ export const ToastProvider: React.FC<PropsWithChildren> = ({ children }) => {
                 ),
             3000
         );
-    };
-    const hideToast: hideToast = (currentToast) =>
-        setToasts((toasts) =>
-            toasts.filter((toast) => toast._id !== currentToast._id)
-        );
+    }, []);
+    const hideToast: hideToast = useCallback(
+        (currentToast) =>
+            setToasts((toasts) =>
+                toasts.filter((toast) => toast._id !== currentToast._id)
+            ),
+        []
+    );
 
     return (
         <ToastContext.Provider value={{ toasts, showToast, hideToast }}>

@@ -22,10 +22,17 @@ export const FilterOptions: React.FC = () => {
         return { maxPrice, minPrice };
     };
     const { maxPrice, minPrice } = getMaxMinPrice(products);
-    useEffect(
-        () => dispatch({ type: "PROCESS" }),
-        [filters, sorters, dispatch]
-    );
+    useEffect(() => {
+        dispatch({ type: "PROCESS" });
+    }, [filters, sorters, dispatch]);
+
+    //Clear Products and Filter from State on Unmount
+    useEffect(() => {
+        return () => {
+            dispatch({ type: "LOAD_DATA", payload: [] });
+            dispatch({ type: "CLEAR_FILTERS" });
+        };
+    }, [dispatch]);
     return (
         <aside className="filter">
             <div className="filter__header m-2">

@@ -2,7 +2,7 @@ import { Badge } from "../Badge/Badge";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "contexts/auth-context";
-import { signOutHandler } from "utility-functions/authHandler";
+import { signOutHandler } from "utility-functions/AuthHandlers/signOutHandler";
 import { useCartWishlist } from "contexts/cart-wishlist-context";
 import { useLoader } from "contexts/loader-context";
 import { useFilter } from "contexts/filter-context";
