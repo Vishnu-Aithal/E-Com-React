@@ -1,4 +1,4 @@
-import { Badge } from "../Badge/Badge";
+import { Badge } from "components/Badge/Badge";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "contexts/auth-context";
@@ -61,6 +61,11 @@ export const TopNav: React.FC = () => {
                 className={`ms-auto nav-bar__list-group clr-white ${
                     collapsed ? "" : "show"
                 }`}>
+                <li className="nav-bar__list-item mx-3">
+                    <NavLink to="/orders" className={activeClass}>
+                        <i className="far fa-list-alt"></i>
+                    </NavLink>
+                </li>
                 <li className="nav-bar__list-item mx-3">
                     <NavLink to="/wishlist" className={activeClass}>
                         <i className="far fa-heart"></i>

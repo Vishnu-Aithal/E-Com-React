@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Product } from "types/Product";
 import { CardTypes } from "./Index";
 

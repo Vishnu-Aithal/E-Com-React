@@ -1,0 +1,27 @@
+.highlight__item {
+    display: flex;
+    width: 48vw;
+    min-width: 500px;
+    border: 2px solid var(--color-black-light);
+}
+
+.highlight__item img {
+    max-width: 400px;
+    height: 100%;
+}
+.highlight__image-wrapper {
+    height: 380px;
+}
+
+.highlight__item-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+@media only screen and (max-width: 768px) {
+    .highlight__item {
+        flex-direction: column;
+        min-width: 350px;
+    }
+}

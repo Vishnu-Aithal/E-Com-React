@@ -1,6 +1,7 @@
 import { useFilter } from "contexts/filter-context";
 import { useEffect } from "react";
 import { Product } from "types/Product";
+import classes from "./FilterOptions.module.css";
 
 export const FilterOptions: React.FC = () => {
     const ratings = [4, 3, 2, 1];
@@ -34,19 +35,19 @@ export const FilterOptions: React.FC = () => {
         };
     }, [dispatch]);
     return (
-        <aside className="filter">
-            <div className="filter__header m-2">
+        <aside className={classes["filter"]}>
+            <div className={`${classes["filter__header"]}  m-2`}>
                 <h4 className="heading-xs text-bold">Filters</h4>
                 <p
-                    className="filter__clear ms-auto"
+                    className={`${classes["filter__clear"]} ms-auto`}
                     onClick={() => dispatch({ type: "CLEAR_FILTERS" })}>
                     Clear
                 </p>
             </div>
-            <div className="filter__price m-2">
+            <div className={`${classes["filter__price"]} m-2`}>
                 <h4 className="heading-xs text-bold">Price</h4>
                 <input
-                    className="filter__price-slider"
+                    className={classes["filter__price-slider"]}
                     type="range"
                     min={minPrice}
                     max={maxPrice}
@@ -59,7 +60,7 @@ export const FilterOptions: React.FC = () => {
                         })
                     }
                 />
-                <datalist id="price-steps">
+                <datalist id="price-steps" className={classes["price-steps"]}>
                     <option
                         value={minPrice}
                         label={minPrice.toString()}></option>
@@ -71,7 +72,7 @@ export const FilterOptions: React.FC = () => {
                         label={maxPrice.toString()}></option>
                 </datalist>
             </div>
-            <div className="filter__category m-2">
+            <div className={`${classes["filter__category"]} m-2`}>
                 <h4 className="heading-xs text-bold">Category</h4>
                 {categories.map((category) => (
                     <label key={category}>
@@ -89,7 +90,7 @@ export const FilterOptions: React.FC = () => {
                     </label>
                 ))}
             </div>
-            <div className="filter__category m-2">
+            <div className={`${classes["filter__category"]} m-2`}>
                 <h4 className="heading-xs text-bold">Brand</h4>
                 {brands.map((brand) => (
                     <label key={brand}>
@@ -107,7 +108,7 @@ export const FilterOptions: React.FC = () => {
                     </label>
                 ))}
             </div>
-            <div className="filter__category m-2">
+            <div className={`${classes["filter__category"]} m-2`}>
                 <h4 className="heading-xs text-bold">Type</h4>
                 {types.map((type) => (
                     <label key={type}>
@@ -125,7 +126,7 @@ export const FilterOptions: React.FC = () => {
                     </label>
                 ))}
             </div>
-            <div className="filter__rating m-2">
+            <div className={`${classes["filter__rating"]} m-2`}>
                 <h4 className="heading-xs text-bold">Rating</h4>
                 {ratings.map((rating) => (
                     <label key={rating}>
@@ -144,7 +145,7 @@ export const FilterOptions: React.FC = () => {
                     </label>
                 ))}
             </div>
-            <div className="filter__sort m-2">
+            <div className={`${classes["filter__sort"]} m-2`}>
                 <h4 className="heading-xs text-bold">Sort By Price</h4>
                 <label>
                     <input
@@ -175,7 +176,7 @@ export const FilterOptions: React.FC = () => {
                     Price - High to Low
                 </label>
             </div>
-            <div className="filter__sort m-2">
+            <div className={`${classes["filter__sort"]} m-2`}>
                 <h4 className="heading-xs text-bold">Sort By Rating</h4>
                 <label>
                     <input
@@ -206,7 +207,7 @@ export const FilterOptions: React.FC = () => {
                     Rating - High to Low
                 </label>
             </div>
-            <div className="filter__category m-2">
+            <div className={`${classes["filter__category"]} m-2`}>
                 <h4 className="heading-xs text-bold">Other</h4>
                 <label>
                     <input

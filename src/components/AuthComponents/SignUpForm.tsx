@@ -4,6 +4,7 @@ import { useAuth } from "contexts/auth-context";
 import { useLoader } from "contexts/loader-context";
 import { useState } from "react";
 import { useToast } from "contexts/toast-context";
+import classes from "./Auth.module.css";
 export const SignUpForm = () => {
     const { authDispatch } = useAuth();
     const navigate = useNavigate();
@@ -57,7 +58,7 @@ export const SignUpForm = () => {
                         }))
                     }
                     type="text"
-                    className="input__field"
+                    className={`${classes["input__field"]} input__field`}
                     name="firstName"
                     placeholder="First name"
                     required
@@ -77,7 +78,7 @@ export const SignUpForm = () => {
                         }))
                     }
                     type="text"
-                    className="input__field"
+                    className={`${classes["input__field"]} input__field`}
                     name="lastName"
                     placeholder="Last name"
                     required
@@ -96,7 +97,7 @@ export const SignUpForm = () => {
                             email: e.target.value,
                         }))
                     }
-                    className="input__field"
+                    className={`${classes["input__field"]} input__field`}
                     type="email"
                     name="email"
                     id="email"
@@ -117,7 +118,7 @@ export const SignUpForm = () => {
                             password: e.target.value,
                         }))
                     }
-                    className="input__field"
+                    className={`${classes["input__field"]} input__field`}
                     type="password"
                     name="password"
                     id="password"
@@ -133,7 +134,7 @@ export const SignUpForm = () => {
 
             <div className="input">
                 <input
-                    className="input__field"
+                    className={`${classes["input__field"]} input__field`}
                     type="password"
                     name="password"
                     id="password2"

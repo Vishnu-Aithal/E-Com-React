@@ -1,6 +1,6 @@
 import { Card } from "components/Card/Index";
 import { FilterOptions } from "components/Filter/FilterOptions";
-import "styles/productpage.css";
+import classes from "./ProductPage.module.css";
 import { useEffect } from "react";
 import axios from "axios";
 import { useFilter } from "contexts/filter-context";
@@ -46,9 +46,9 @@ export const ProductsPage = () => {
     }, [searchParams, filterDispatch, products, setSearchParams]);
 
     return (
-        <div className="product-content">
+        <div className={classes["product-content"]}>
             <FilterOptions />
-            <div className="product-card-container">
+            <div className={classes["product-card-container"]}>
                 <h3 className="w-100p ms-3">
                     Showing {products.length} products
                 </h3>

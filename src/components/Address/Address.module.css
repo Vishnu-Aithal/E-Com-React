@@ -1,0 +1,28 @@
+.address-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(1px) brightness(70%);
+    display: grid;
+    place-content: center;
+}
+
+.address-modal :global(form) {
+    max-width: 90vw;
+}
+
+.address-modal :global(.input) {
+    max-width: 100%;
+}
+.address-modal :global(.input__field) {
+    width: 20rem;
+    max-width: 100%;
+}
+
+.address {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}

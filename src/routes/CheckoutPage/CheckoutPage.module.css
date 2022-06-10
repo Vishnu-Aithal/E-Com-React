@@ -1,0 +1,14 @@
+.checkout-container {
+    width: 100vw;
+    overflow-y: auto;
+}
+
+.checkout-address-container {
+    width: 100%;
+    display: flex;
+    padding: 2rem;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+}

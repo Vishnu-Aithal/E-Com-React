@@ -22,6 +22,7 @@ interface CommonCardProps {
     type: CardTypes;
     productData: Product;
     badge?: string;
+    hz?: boolean;
 }
 interface CartCard extends CommonCardProps {
     type: "cart";
@@ -44,7 +45,7 @@ export const Card: React.FC<CardProps> = (props) => {
     const token = authState.isLoggedIn ? authState.token : "";
     const { showLoader, hideLoader } = useLoader();
     return (
-        <div className="card shadow-sm">
+        <div className={`card shadow-sm ${props.hz ? "card--hz" : ""}`}>
             {props.badge && <CardBadge badge={props.badge} />}
 
             {(props.type === "cart" || props.type === "wishlist") && (

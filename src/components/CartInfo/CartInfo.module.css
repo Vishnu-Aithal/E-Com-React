@@ -1,0 +1,27 @@
+.cart-info {
+    width: 300px;
+    grid-column: 4/7;
+    grid-row: 1/7;
+
+    margin-left: auto;
+}
+
+.cart-info__header {
+    border-bottom: solid 2px var(--color-secondary-light);
+}
+
+.cart-info__total {
+    border-top: solid 2px var(--color-secondary-light);
+}
+
+.coupon {
+}
+
+@media only screen and (max-width: 768px) {
+    .cart-info {
+        width: 350px;
+        margin: auto;
+        grid-column: 1/7;
+        grid-row: 1/3;
+    }
+}

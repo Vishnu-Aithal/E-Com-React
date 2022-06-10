@@ -1,7 +1,7 @@
-import "styles/homepage.css";
-import { Hero } from "../components/Layout/Hero";
-import { HighlightCategory } from "../components/HighlightCategory";
-import heroImage from "../assets/images/wardrobe.jpg";
+import classes from "./HomePage.module.css";
+import { Hero } from "components/Layout/Hero";
+import { HighlightCategory } from "components/HighlightCategory/HighlightCategory";
+import heroImage from "assets/images/wardrobe.jpg";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
@@ -20,9 +20,9 @@ export const HomePage: React.FC = () => {
         })();
     }, []);
     return (
-        <div className="homepage-content">
+        <div className={classes["homepage-content"]}>
             <Hero backgroundImage={heroImage} />
-            <div className="highlight">
+            <div className={classes["highlight"]}>
                 {categories.map((category) => (
                     <HighlightCategory
                         key={category._id}

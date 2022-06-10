@@ -10,6 +10,7 @@ import { CartWishlistProvider } from "contexts/cart-wishlist-context";
 import { LoaderProvider } from "contexts/loader-context";
 import { ContextProvider } from "contexts/composer-context";
 import { ToastProvider } from "contexts/toast-context";
+import { UserProvider } from "contexts/user-context";
 
 // Call make Server
 makeServer();
@@ -22,6 +23,7 @@ ReactDOM.render(
             LoaderProvider,
             ToastProvider,
             AuthProvider,
+            UserProvider,
             CartWishlistProvider,
             FilterProvider,
         ]}>

@@ -1,5 +1,5 @@
-import "../styles/wishlist.css";
-import { Card } from "../components/Card/Index";
+import classes from "./WishlistPage.module.css";
+import { Card } from "components/Card/Index";
 import { useCartWishlist } from "contexts/cart-wishlist-context";
 
 export const WishlistPage = () => {
@@ -8,8 +8,8 @@ export const WishlistPage = () => {
     } = useCartWishlist();
 
     return (
-        <div className="wishlist-content">
-            <div className="wishlist-card-container">
+        <div className={classes["wishlist-content"]}>
+            <div className={classes["wishlist-card-container"]}>
                 {wishlist.length === 0 && (
                     <h3 className="w-100p text-center">
                         {" "}

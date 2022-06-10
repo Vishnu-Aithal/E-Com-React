@@ -4,6 +4,7 @@ import { useAuth } from "contexts/auth-context";
 import { useLoader } from "contexts/loader-context";
 import React, { useState } from "react";
 import { useToast } from "contexts/toast-context";
+import classes from "./Auth.module.css";
 
 interface LocationState {
     from: { pathname: string };
@@ -70,7 +71,7 @@ export const SignInForm: React.FC = () => {
                                 email: e.target.value,
                             }))
                         }
-                        className="input__field"
+                        className={`${classes["input__field"]} input__field`}
                         type="email"
                         name="email"
                         id="email"
@@ -91,7 +92,7 @@ export const SignInForm: React.FC = () => {
                                 password: e.target.value,
                             }))
                         }
-                        className="input__field"
+                        className={`${classes["input__field"]} input__field`}
                         type="password"
                         name="password"
                         id="password"
@@ -122,7 +123,7 @@ export const SignInForm: React.FC = () => {
                     type="submit">
                     Sign In
                 </button>
-                <p className="helper-text mt-3">
+                <p className={`${classes["helper-text"]} mt-3`}>
                     Not a member? <Link to={"/sign-up"}>Sign Up</Link>
                 </p>
                 <button
