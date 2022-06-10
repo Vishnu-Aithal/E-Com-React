@@ -1,0 +1,33 @@
+.product-content {
+    display: grid;
+    width: 100%;
+    padding-top: 1rem;
+    overflow-y: hidden;
+}
+
+.product-card-container {
+    grid-row: 1/7;
+    grid-column: 3/7;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 1rem;
+    max-height: 100%;
+    width: 100%;
+    overflow-y: auto;
+}
+
+@media only screen and (max-width: 768px) {
+    .product-content {
+        overflow-y: auto;
+        padding-top: 0;
+    }
+
+    .product-card-container {
+        grid-row: 3 / 7;
+        grid-column: 1/7;
+        align-items: center;
+        overflow-y: unset;
+    }
+}
