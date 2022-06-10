@@ -46,9 +46,6 @@ export const CartInfo: React.FC<CartInfoProps> = ({ cart = [] }) => {
                 onClick={() => navigate("/checkout")}>
                 Checkout
             </button>
-            <div className={classes["coupon"]}>
-                <select name="" id=""></select>
-            </div>
         </div>
     );
 };

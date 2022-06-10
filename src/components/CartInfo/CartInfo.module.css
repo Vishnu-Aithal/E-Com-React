@@ -14,9 +14,6 @@
     border-top: solid 2px var(--color-secondary-light);
 }
 
-.coupon {
-}
-
 @media only screen and (max-width: 768px) {
     .cart-info {
         width: 350px;
