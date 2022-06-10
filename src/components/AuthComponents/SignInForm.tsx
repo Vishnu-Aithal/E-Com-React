@@ -112,9 +112,9 @@ export const SignInForm: React.FC = () => {
                         type="checkbox"
                         className=""
                         name="tandc"
-                        id=""
+                        id="remember-me"
                     />
-                    <label className="text-sm" htmlFor="">
+                    <label className="text-sm" htmlFor="remember-me">
                         Remember Me
                     </label>
                 </div>
@@ -136,7 +136,7 @@ export const SignInForm: React.FC = () => {
                             showLoader,
                             hideLoader,
                             authDispatch,
-                            true
+                            rememberMe
                         );
                         handleError(error);
                     }}>
