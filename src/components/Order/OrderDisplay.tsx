@@ -8,15 +8,15 @@ export const OrderDisplay: React.FC<{ order: Order }> = ({ order }) => {
                 Order : {order._id}
             </p>
             <p className="text-semi-bold">Products :</p>
-            <ul className="list-group list-group--spaced-box w-fit">
+            <ul className={classes["product-list"]}>
                 {order.products.map((productName) => (
-                    <li className="list__item br-1">{productName}</li>
+                    <li className="br-1">{productName}</li>
                 ))}
             </ul>
             <p className="ms-2 mb-2 text-bold">{`Total - ${order.total}₹`}</p>
             <p className="text-semi-bold">{`Delivering to - ${order.address.name}`}</p>
             <p className="text-end text-sm text-semi-bold">
-                Placed at: {order.createdAt?.slice(0, 19)}
+                Placed at: {new Date(order.createdAt || " ").toLocaleString()}
             </p>
         </div>
     );

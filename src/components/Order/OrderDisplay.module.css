@@ -4,3 +4,14 @@
     padding: 1rem;
     width: 90%;
 }
+
+.product-list {
+    list-style: none;
+    margin: 0.5rem;
+    width: fit-content;
+}
+
+.product-list li {
+    border: solid 1px lightgray;
+    padding: 0.25rem 0.5rem;
+}
