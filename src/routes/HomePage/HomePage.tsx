@@ -1,7 +1,7 @@
 import classes from "./HomePage.module.css";
 import { Hero } from "components/Layout/Hero";
 import { HighlightCategory } from "components/HighlightCategory/HighlightCategory";
-import heroImage from "assets/images/wardrobe.jpg";
+import heroImage from "assets/images/wardrobe.webp";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";

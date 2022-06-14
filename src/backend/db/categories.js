@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
-import casualSetImage from "assets/images/casual-collection.jpg";
-import formalSetImage from "assets/images/formal-collection.jpg";
+import casualSetImage from "assets/images/casual-collection.webp";
+import formalSetImage from "assets/images/formal-collection.webp";
 
 /**
  * Category Database can be added here.

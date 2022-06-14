@@ -1,11 +1,17 @@
 import { v4 as uuid } from "uuid";
-
 /**
  * Product Database can be added here.
  * You can add products of your wish with different attributes
  * */
-const types = ["Shoes", "Shirt", "Pant"];
-const categories = ["Sports", "Casual", "Formal"];
+const importAll = (r) => {
+    return r.keys().map(r);
+};
+const images = importAll(
+    require.context("assets/images/product", false, /\.(png|jpe?g|svg)$/)
+);
+console.log(images[0]);
+const types = ["Pant", "Shirt", "Shoes"];
+const categories = ["Casual", "Formal", "Sports"];
 const brands = ["Hike", "Adibas", "WoodSky"];
 const ratings = [1, 2, 3, 4, 5];
 
@@ -22,9 +28,9 @@ const getRandomElement = (arr) => {
 
 const productsGenerator = (types, categories, brands) => {
     let products = [];
-    for (const type of types) {
-        for (const brand of brands) {
-            for (const category of categories) {
+    for (const category of categories) {
+        for (const type of types) {
+            for (const brand of brands) {
                 const product = {
                     _id: uuid(),
                     title: `${category} ${type}`,
@@ -32,9 +38,7 @@ const productsGenerator = (types, categories, brands) => {
                     price: randomPrice(5000, 100),
                     category: category,
                     type: type,
-                    image: `https://picsum.photos/600/800?random=${
-                        products.length + 1
-                    }`,
+                    image: images[products.length].default,
                     rating: getRandomElement(ratings),
                     outOfStock: getRandomElement([
                         false,
