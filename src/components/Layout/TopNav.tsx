@@ -6,6 +6,7 @@ import { signOutHandler } from "utility-functions/AuthHandlers/signOutHandler";
 import { useCartWishlist } from "contexts/cart-wishlist-context";
 import { useLoader } from "contexts/loader-context";
 import { useFilter } from "contexts/filter-context";
+import { SearchModal } from "components/SearchModal/SearchModal";
 
 export const TopNav: React.FC = () => {
     const [collapsed, setCollapsed] = useState(true);
@@ -18,18 +19,18 @@ export const TopNav: React.FC = () => {
     const {
         cartWishlistState: { cart, wishlist },
     } = useCartWishlist();
-    const { filterDispatch } = useFilter();
+    // const { filterDispatch } = useFilter();
     const { showLoader, hideLoader } = useLoader();
     const navigate = useNavigate();
-    const location = useLocation();
-    const [searchTerm, setSearchTerm] = useState("");
-    useEffect(
-        () => filterDispatch({ type: "SET_SEARCH_TERM", payload: searchTerm }),
-        [searchTerm, filterDispatch]
-    );
-    useEffect(() => {
-        location.pathname !== "/products" && setSearchTerm("");
-    }, [location]);
+    // const location = useLocation();
+    const [searchMode, setSearchMode] = useState(false);
+    // useEffect(
+    //     () => filterDispatch({ type: "SET_SEARCH_TERM", payload: searchTerm }),
+    //     [searchTerm, filterDispatch]
+    // );
+    // useEffect(() => {
+    //     location.pathname !== "/products" && setSearchTerm("");
+    // }, [location]);
     return (
         <nav className="nav-bar bg-primary shadow-sm">
             <div className="nav-bar__header heading-md text-bold clr-white me-2">
@@ -38,17 +39,13 @@ export const TopNav: React.FC = () => {
                 </NavLink>
             </div>
             <div className="nav-bar__search-wrapper ms-auto br-4 shadow-xs">
-                <input
-                    className="nav-bar__search-input p-2 br-3"
-                    type="search"
-                    placeholder="Search"
-                    value={searchTerm}
-                    onChange={(e) => {
-                        location.pathname !== "/products" &&
-                            navigate("/products");
-                        setSearchTerm(e.target.value);
-                    }}
-                />
+                <button onClick={(e) => setSearchMode(true)}>Search</button>
+                {searchMode && (
+                    <SearchModal
+                        searchMode={searchMode}
+                        setSearchMode={setSearchMode}
+                    />
+                )}
             </div>
             <button
                 className={`nav-bar__toggle btn btn--icon-lg clr-white br-2 ms-2 ${

@@ -1,0 +1,24 @@
+.search-modal {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px) brightness(50%);
+}
+
+.search-modal input {
+    padding: 1rem;
+}
+
+.search-modal ul {
+    list-style: none;
+}
+.search-modal li {
+    background-color: lightgrey;
+    padding: 1rem;
+    border: solid lightgray 1px;
+}
