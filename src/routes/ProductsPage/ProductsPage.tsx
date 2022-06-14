@@ -10,6 +10,8 @@ import {
     inWishlist,
 } from "utility-functions/CartAndWishlistHandlers/inCart";
 import { useSearchParams } from "react-router-dom";
+import { useLoader } from "contexts/loader-context";
+import { useToast } from "contexts/toast-context";
 
 export const ProductsPage = () => {
     const {
@@ -22,17 +24,24 @@ export const ProductsPage = () => {
         cartWishlistState: { cart, wishlist },
     } = useCartWishlist();
     const [searchParams, setSearchParams] = useSearchParams();
+    const { showLoader, hideLoader } = useLoader();
+    const { showToast } = useToast();
     useEffect(() => {
         (async () => {
             try {
+                showLoader("Fetching Products");
                 const response = await axios.get("/api/products");
                 filterDispatch({
                     type: "LOAD_DATA",
                     payload: response.data.products,
                 });
-            } catch (error) {}
+            } catch (error) {
+                showToast({ title: "Failed to fetch Products", type: "error" });
+            } finally {
+                hideLoader();
+            }
         })();
-    }, [filterDispatch]);
+    }, [filterDispatch, showLoader, hideLoader, showToast]);
 
     useEffect(() => {
         const categoryQuery = searchParams.get("category");
