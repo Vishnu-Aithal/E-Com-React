@@ -9,7 +9,6 @@ const importAll = (r) => {
 const images = importAll(
     require.context("assets/images/product", false, /\.(png|jpe?g|svg)$/)
 );
-console.log(images[0]);
 const types = ["Pant", "Shirt", "Shoes"];
 const categories = ["Casual", "Formal", "Sports"];
 const brands = ["Hike", "Adibas", "WoodSky"];

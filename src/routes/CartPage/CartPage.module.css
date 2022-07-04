@@ -7,7 +7,7 @@
 }
 
 .cart-card-container {
-    grid-column: 1/4;
+    grid-column: 1/6;
     grid-row: 1/7;
     display: flex;
     flex-direction: column;
@@ -21,6 +21,10 @@
 
 .cart-card-container :global(.card) {
     width: 80%;
+}
+.cart-card-container :global(.card__dismiss) {
+    top: 0.5rem;
+    right: 1rem;
 }
 
 @media only screen and (max-width: 768px) {
@@ -39,5 +43,9 @@
         margin: 0;
         padding-top: 0.5rem;
         margin-top: 1rem;
+    }
+    .cart-card-container :global(.card__dismiss) {
+        top: -1%;
+        right: 1%;
     }
 }

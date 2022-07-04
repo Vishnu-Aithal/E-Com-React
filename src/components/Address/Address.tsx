@@ -46,7 +46,7 @@ export const Address: React.FC<AddressProps> = ({
                     {
                         address,
                         total: TotalPrice.toString(),
-                        products: cart.map(({ title }) => title),
+                        products: cart,
                     },
                     userDispatch,
                     token!,

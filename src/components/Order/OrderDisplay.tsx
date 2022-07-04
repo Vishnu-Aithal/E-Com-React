@@ -9,8 +9,11 @@ export const OrderDisplay: React.FC<{ order: Order }> = ({ order }) => {
             </p>
             <p className="text-semi-bold">Products :</p>
             <ul className={classes["product-list"]}>
-                {order.products.map((productName) => (
-                    <li className="br-1">{productName}</li>
+                {order.products.map((product) => (
+                    <li key={product._id} className="br-1 my-1">
+                        <p>{`${product.title} - ${product.brand}`}</p>
+                        <p className="text-sm">{`Quantity - ${product.qty}`}</p>
+                    </li>
                 ))}
             </ul>
             <p className="ms-2 mb-2 text-bold">{`Total - ${order.total}₹`}</p>
