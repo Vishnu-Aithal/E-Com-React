@@ -15,7 +15,7 @@ export const Hero: React.FC<HeroProps> = ({
                 Stock Your Wardrobe Now!
             </h1>
             <button
-                className="btn--link btn--lg btn--primary br-3 text-lg shadow-md-hover"
+                className="btn btn--link btn--lg btn--primary br-3 text-lg shadow-md-hover"
                 onClick={() => navigate("/products")}>
                 Shop Now
             </button>
