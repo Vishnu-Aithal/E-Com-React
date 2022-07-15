@@ -36,7 +36,7 @@ export const SignInForm: React.FC = () => {
                 type: "success",
             });
 
-            if (location.state) {
+            if (locationState?.from?.pathname) {
                 navigate(locationState.from.pathname);
             } else {
                 navigate("/products");
