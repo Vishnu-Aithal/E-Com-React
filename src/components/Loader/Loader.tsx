@@ -1,12 +1,12 @@
 import { useLoader } from "contexts/loader-context";
 import { createPortal } from "react-dom";
-import classes from "./Loader.module.css";
+import { StyledLoader } from "./styled-Loader";
 const LoaderComponent: React.FC = () => {
     const { loader } = useLoader();
     return (
-        <div className={`${classes.loader} ${classes[loader.state]}`}>
-            <h1 className={classes["loader__text"]}>{loader.text}</h1>
-        </div>
+        <StyledLoader.Container state={loader.state}>
+            <StyledLoader.Text>{loader.text}</StyledLoader.Text>
+        </StyledLoader.Container>
     );
 };
 

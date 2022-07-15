@@ -1,9 +1,9 @@
 import { SignUpForm } from "components/AuthComponents/SignUpForm";
-import classes from "./AuthPage.module.css";
+import { StyledAuthContent } from "./styled-AuthPage";
 export const SignUpPage: React.FC = () => {
     return (
-        <div className={classes["auth-content"]}>
+        <StyledAuthContent>
             <SignUpForm />
-        </div>
+        </StyledAuthContent>
     );
 };

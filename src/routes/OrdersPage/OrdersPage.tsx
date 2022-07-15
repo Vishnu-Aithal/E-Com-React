@@ -2,7 +2,7 @@ import { OrderDisplay } from "components/Order/OrderDisplay";
 import { useUser } from "contexts/user-context";
 import { useEffect, useState } from "react";
 import { Order } from "types/Order";
-import classes from "./OrdersPage.module.css";
+import { StyledOrdersPage } from "./styled-OrdersPage";
 
 export const OrdersPage: React.FC = () => {
     const {
@@ -18,11 +18,11 @@ export const OrdersPage: React.FC = () => {
         setSortedOrders(sorted);
     }, [orders]);
     return (
-        <div className={classes["container"]}>
+        <StyledOrdersPage.Container>
             {sortedOrders.length === 0 && <h3>No Orders Placed</h3>}
             {sortedOrders.map((order) => (
                 <OrderDisplay order={order} key={order._id} />
             ))}
-        </div>
+        </StyledOrdersPage.Container>
     );
 };

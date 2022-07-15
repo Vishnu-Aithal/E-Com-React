@@ -1,6 +1,5 @@
 import { Card } from "components/Card/Index";
 import { FilterOptions } from "components/Filter/FilterOptions";
-import classes from "./ProductPage.module.css";
 import { useEffect } from "react";
 import axios from "axios";
 import { useFilter } from "contexts/filter-context";
@@ -12,6 +11,7 @@ import {
 import { useSearchParams } from "react-router-dom";
 import { useLoader } from "contexts/loader-context";
 import { useToast } from "contexts/toast-context";
+import { StyledProductPage } from "./styled-ProductPage";
 
 export const ProductsPage = () => {
     const {
@@ -59,11 +59,11 @@ export const ProductsPage = () => {
     }, [searchParams, filterDispatch, products, setSearchParams]);
 
     return (
-        <div className={classes["product-content"]}>
+        <StyledProductPage.Content>
             <FilterOptions />
-            <div className={classes["products-container"]}>
+            <StyledProductPage.Display>
                 <h3 className="ps-3">Showing {products.length} products</h3>
-                <div className={classes["product-card-container"]}>
+                <StyledProductPage.CardContainer>
                     {products.map((product) => (
                         <Card
                             key={product._id}
@@ -74,8 +74,8 @@ export const ProductsPage = () => {
                             inWishlist={inWishlist(product, wishlist)}
                         />
                     ))}
-                </div>
-            </div>
-        </div>
+                </StyledProductPage.CardContainer>
+            </StyledProductPage.Display>
+        </StyledProductPage.Content>
     );
 };

@@ -4,7 +4,9 @@ import { useAuth } from "contexts/auth-context";
 import { useLoader } from "contexts/loader-context";
 import React, { useState } from "react";
 import { useToast } from "contexts/toast-context";
-import classes from "./Auth.module.css";
+
+import { AuthForm } from "./styled-Auth";
+import { MyInput } from "components/Layout/MyInput";
 
 interface LocationState {
     from: { pathname: string };
@@ -43,68 +45,68 @@ export const SignInForm: React.FC = () => {
             }
         }
     };
-
+    const submitHandler = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setFormDetails({ email: "", password: "" });
+        const error = await signInHandler(
+            formDetails.email,
+            formDetails.password,
+            showLoader,
+            hideLoader,
+            authDispatch,
+            rememberMe
+        );
+        handleError(error);
+    };
+    const signInDemo = async () => {
+        const error = await signInHandler(
+            "testuser@gmail.com",
+            "testuser@123",
+            showLoader,
+            hideLoader,
+            authDispatch,
+            rememberMe
+        );
+        handleError(error);
+    };
     return (
         <>
-            <form
-                onSubmit={async (e: React.FormEvent) => {
-                    e.preventDefault();
-                    setFormDetails({ email: "", password: "" });
-                    const error = await signInHandler(
-                        formDetails.email,
-                        formDetails.password,
-                        showLoader,
-                        hideLoader,
-                        authDispatch,
-                        rememberMe
-                    );
-                    handleError(error);
-                }}
+            <AuthForm
+                onSubmit={submitHandler}
                 className="p-4 w-fit mx-auto br-2 mt-6">
                 <h2 className="heading-md text-center mb-4">Sign In</h2>
-                <div className="input">
-                    <input
-                        value={formDetails.email}
-                        onChange={(e) =>
-                            setFormDetails((formDetails) => ({
-                                ...formDetails,
-                                email: e.target.value,
-                            }))
-                        }
-                        className={`${classes["input__field"]} input__field`}
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder="Enter Email"
-                        required
-                    />
-                    <label className="input__float-label" htmlFor="email">
-                        Email
-                    </label>
-                    <span className="input__required-text"></span>
-                </div>
-                <div className="input">
-                    <input
-                        value={formDetails.password}
-                        onChange={(e) =>
-                            setFormDetails((formDetails) => ({
-                                ...formDetails,
-                                password: e.target.value,
-                            }))
-                        }
-                        className={`${classes["input__field"]} input__field`}
-                        type="password"
-                        name="password"
-                        id="password"
-                        placeholder="Enter Password"
-                        minLength={8}
-                        required
-                    />
-                    <label className="input__float-label" htmlFor="password">
-                        Password
-                    </label>
-                    <span className="input__required-text"></span>
-                </div>
+
+                <MyInput
+                    label="Email"
+                    value={formDetails.email}
+                    onChange={(e) =>
+                        setFormDetails((formDetails) => ({
+                            ...formDetails,
+                            email: e.target.value,
+                        }))
+                    }
+                    type="email"
+                    name="email"
+                    id="email"
+                    required
+                />
+
+                <MyInput
+                    label="Password"
+                    value={formDetails.password}
+                    onChange={(e) =>
+                        setFormDetails((formDetails) => ({
+                            ...formDetails,
+                            password: e.target.value,
+                        }))
+                    }
+                    type="password"
+                    name="password"
+                    id="password"
+                    minLength={8}
+                    required
+                />
+
                 <div className="input ms-1">
                     <input
                         onChange={(e) => setRememberMe(e.target.checked)}
@@ -114,7 +116,7 @@ export const SignInForm: React.FC = () => {
                         name="tandc"
                         id="remember-me"
                     />
-                    <label className="text-sm" htmlFor="remember-me">
+                    <label className="text-sm ms-1" htmlFor="remember-me">
                         Remember Me
                     </label>
                 </div>
@@ -123,26 +125,16 @@ export const SignInForm: React.FC = () => {
                     type="submit">
                     Sign In
                 </button>
-                <p className={`${classes["helper-text"]} mt-3`}>
+                <p className="helper-text mt-3">
                     Not a member? <Link to={"/sign-up"}>Sign Up</Link>
                 </p>
                 <button
                     className="btn btn--primary br-1 mt-2 "
                     type="button"
-                    onClick={async () => {
-                        const error = await signInHandler(
-                            "testuser@gmail.com",
-                            "testuser@123",
-                            showLoader,
-                            hideLoader,
-                            authDispatch,
-                            rememberMe
-                        );
-                        handleError(error);
-                    }}>
+                    onClick={signInDemo}>
                     Sign In Demo
                 </button>
-            </form>
+            </AuthForm>
         </>
     );
 };

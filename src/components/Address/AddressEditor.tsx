@@ -7,7 +7,8 @@ import { createPortal } from "react-dom";
 import { AddressWithoutId } from "routes/CheckoutPage/CheckoutPage";
 import { AddressType } from "types/Address";
 import { addAddress, updateAdress } from "utility-functions/UserHandlers";
-import classes from "./Address.module.css";
+import { StyledAddressModal } from "./styled-Address";
+import { MyInput } from "../Layout/MyInput";
 
 interface AddressEditorProps {
     address: AddressWithoutId;
@@ -85,124 +86,74 @@ export const AddressEditor: React.FC<AddressEditorProps> = (props) => {
             setMode("close");
         }
     };
+    const handleClickOutside: React.MouseEventHandler<HTMLDivElement> = (e) =>
+        (e.target as HTMLDivElement)?.id === "address-modal" &&
+        setMode("close");
+
     return (
-        <div
-            id="address-modal"
-            className={classes["address-modal"]}
-            onClick={(e) =>
-                (e.target as HTMLDivElement)?.id === "address-modal" &&
-                setMode("close")
-            }>
+        <StyledAddressModal id="address-modal" onClick={handleClickOutside}>
             <form
-                className="p-4 w-fit text-center shadow-md-hover br-2 bg-white"
+                className="p-6 w-fit text-center shadow-md-hover br-2 bg-white"
                 action=""
                 onSubmit={submitHandler}>
-                <div className="input">
-                    <input
-                        className="input__field"
-                        placeholder="Name"
-                        type="text"
-                        value={address.name}
-                        onChange={(e) => handleChange(e, "name")}
-                        required
-                    />
-                    <label className="input__float-label" htmlFor="name">
-                        Name
-                    </label>
-                    <span className="input__required-text"></span>
-                </div>
-                <div className="input">
-                    <input
-                        className="input__field"
-                        placeholder="Street Address"
-                        type="text"
-                        value={address.street}
-                        onChange={(e) => handleChange(e, "street")}
-                        required
-                    />
-                    <label className="input__float-label" htmlFor="name">
-                        Street Address
-                    </label>
-                    <span className="input__required-text"></span>
-                </div>
-                <div className="input">
-                    <input
-                        className="input__field"
-                        placeholder="City"
-                        type="text"
-                        value={address.city}
-                        onChange={(e) => handleChange(e, "city")}
-                        required
-                    />
-                    <label className="input__float-label" htmlFor="name">
-                        City
-                    </label>
-                    <span className="input__required-text"></span>
-                </div>
-                <div className="input">
-                    <input
-                        className="input__field"
-                        placeholder="State"
-                        type="text"
-                        value={address.state}
-                        onChange={(e) => handleChange(e, "state")}
-                        required
-                    />
-                    <label className="input__float-label" htmlFor="name">
-                        State
-                    </label>
-                    <span className="input__required-text"></span>
-                </div>
-                <div className="input">
-                    <input
-                        className="input__field"
-                        placeholder="Pin Code - 6 Digits"
-                        type="number"
-                        minLength={6}
-                        maxLength={6}
-                        value={address.pincode}
-                        onChange={(e) => handleChange(e, "pincode")}
-                        required
-                    />
-                    <label className="input__float-label" htmlFor="name">
-                        Pin Code - 6 Digits
-                    </label>
-                    <span className="input__required-text"></span>
-                </div>
-                <div className="input">
-                    <input
-                        className="input__field"
-                        placeholder="Phone Number - 10 Digits"
-                        type="number"
-                        minLength={10}
-                        maxLength={10}
-                        value={address.phone}
-                        onChange={(e) => handleChange(e, "phone")}
-                        required
-                    />
-                    <label className="input__float-label" htmlFor="name">
-                        Phone Number - 10 Digits
-                    </label>
-                    <span className="input__required-text"></span>
-                </div>
-                {mode === "new" && (
-                    <button
-                        type="submit"
-                        className="btn btn--primary br-1 mt-3"
-                        disabled={!validityChecker(address)}>
-                        Add Address
-                    </button>
-                )}
-                {mode !== "new" && (
-                    <button
-                        type="submit"
-                        className="btn btn--secondary br-1 mt-3"
-                        disabled={!validityChecker(address)}>
-                        Update Address
-                    </button>
-                )}
+                <MyInput
+                    label="Name"
+                    type="text"
+                    value={address.name}
+                    onChange={(e) => handleChange(e, "name")}
+                    required
+                />
+                <MyInput
+                    label="Street Address"
+                    type="text"
+                    value={address.street}
+                    onChange={(e) => handleChange(e, "street")}
+                    required
+                />
+                <MyInput
+                    label="City"
+                    type="text"
+                    value={address.city}
+                    onChange={(e) => handleChange(e, "city")}
+                    required
+                />
+                <MyInput
+                    label="State"
+                    type="text"
+                    value={address.state}
+                    onChange={(e) => handleChange(e, "state")}
+                    required
+                />
+
+                <MyInput
+                    label="Pin Code - 6 Digits"
+                    type="number"
+                    minLength={6}
+                    maxLength={6}
+                    value={address.pincode}
+                    onChange={(e) => handleChange(e, "pincode")}
+                    required
+                />
+
+                <MyInput
+                    label="Phone Number - 10 Digits"
+                    type="number"
+                    minLength={10}
+                    maxLength={10}
+                    value={address.phone}
+                    onChange={(e) => handleChange(e, "phone")}
+                    required
+                />
+                <button
+                    type="submit"
+                    className={`btn btn--${
+                        mode === "new" ? "primary" : "secondary"
+                    } br-1 mt-3`}
+                    disabled={!validityChecker(address)}>
+                    {mode === "new" ? "Add Address" : "Update Address"}
+                </button>
             </form>
-        </div>
+        </StyledAddressModal>
     );
 };
 
