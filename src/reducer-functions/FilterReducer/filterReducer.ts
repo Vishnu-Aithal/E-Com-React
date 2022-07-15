@@ -42,7 +42,7 @@ export const initialState: FilterState = {
 export const filterReducerFunction = (
     filterState: FilterState,
     action: FilterActions
-) => {
+): FilterState => {
     const { type } = action;
     const removeFromArray = (element: string, array: string[]) => {
         const newArray = [...array];
@@ -50,7 +50,7 @@ export const filterReducerFunction = (
         return newArray;
     };
 
-    const { data, filters, sorters } = filterState;
+    const { data, filters } = filterState;
 
     switch (type) {
         case "LOAD_DATA":
@@ -122,12 +122,12 @@ export const filterReducerFunction = (
         case "SORT_BY_PRICE":
             return {
                 ...filterState,
-                sorters: { ...sorters, byPrice: action.payload },
+                sorters: { byPrice: action.payload, byRating: null },
             };
         case "SORT_BY_RATING":
             return {
                 ...filterState,
-                sorters: { ...sorters, byRating: action.payload },
+                sorters: { byPrice: null, byRating: action.payload },
             };
         case "CLEAR_FILTERS":
             return {
