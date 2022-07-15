@@ -18,18 +18,21 @@ export const TopNav: React.FC = () => {
     const {
         cartWishlistState: { cart, wishlist },
     } = useCartWishlist();
-    const { filterDispatch } = useFilter();
+    const {
+        filterDispatch,
+        filterState: {
+            data: { fromServer },
+            filters: { searchTerm },
+        },
+    } = useFilter();
     const { showLoader, hideLoader } = useLoader();
     const navigate = useNavigate();
     const location = useLocation();
-    const [searchTerm, setSearchTerm] = useState("");
-    useEffect(
-        () => filterDispatch({ type: "SET_SEARCH_TERM", payload: searchTerm }),
-        [searchTerm, filterDispatch]
-    );
+
     useEffect(() => {
-        location.pathname !== "/products" && setSearchTerm("");
-    }, [location]);
+        location.pathname !== "/products" &&
+            filterDispatch({ type: "SET_SEARCH_TERM", payload: "" });
+    }, [location, filterDispatch]);
     return (
         <nav className="nav-bar bg-primary shadow-sm">
             <div className="nav-bar__header heading-md text-bold clr-white me-2">
@@ -41,12 +44,19 @@ export const TopNav: React.FC = () => {
                 <input
                     className="nav-bar__search-input p-2 br-3"
                     type="search"
-                    placeholder="Search"
+                    placeholder="Search Product Names"
                     value={searchTerm}
-                    onChange={(e) => {
+                    onFocus={(e) =>
                         location.pathname !== "/products" &&
-                            navigate("/products");
-                        setSearchTerm(e.target.value);
+                        navigate("/products")
+                    }
+                    onChange={(e) => {
+                        if (fromServer.length > 0) {
+                            filterDispatch({
+                                type: "SET_SEARCH_TERM",
+                                payload: e.target.value,
+                            });
+                        }
                     }}
                 />
             </div>
