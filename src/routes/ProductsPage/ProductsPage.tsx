@@ -35,6 +35,10 @@ export const ProductsPage = () => {
                     type: "LOAD_DATA",
                     payload: response.data.products,
                 });
+                filterDispatch({
+                    type: "SET_SEARCH_TERM",
+                    payload: "",
+                });
             } catch (error) {
                 showToast({ title: "Failed to fetch Products", type: "error" });
             } finally {
@@ -57,20 +61,20 @@ export const ProductsPage = () => {
     return (
         <div className={classes["product-content"]}>
             <FilterOptions />
-            <div className={classes["product-card-container"]}>
-                <h3 className="w-100p ms-3">
-                    Showing {products.length} products
-                </h3>
-                {products.map((product) => (
-                    <Card
-                        key={product._id}
-                        type="listing"
-                        productData={product}
-                        badge={product.rating + " Stars"}
-                        inCart={inCart(product, cart)}
-                        inWishlist={inWishlist(product, wishlist)}
-                    />
-                ))}
+            <div className={classes["products-container"]}>
+                <h3 className="ps-3">Showing {products.length} products</h3>
+                <div className={classes["product-card-container"]}>
+                    {products.map((product) => (
+                        <Card
+                            key={product._id}
+                            type="listing"
+                            productData={product}
+                            badge={product.rating + " Stars"}
+                            inCart={inCart(product, cart)}
+                            inWishlist={inWishlist(product, wishlist)}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );
