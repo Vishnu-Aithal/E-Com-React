@@ -1,7 +1,5 @@
 .filter {
-    width: 300px;
-    grid-row: 1/7;
-    grid-column: 1/3;
+    min-width: 320px;
     padding: 1.5rem;
     overflow: auto;
 }
@@ -9,6 +7,11 @@
 .filter__header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+
+.filter__toggle {
+    display: none;
 }
 
 .filter__clear {
@@ -40,8 +43,6 @@
     .filter {
         font-size: 75%;
         width: 100%;
-        grid-row: 1/3;
-        grid-column: 1/7;
         align-items: start;
         border-right: none;
         padding: 0.5rem 1.5rem;
@@ -49,20 +50,14 @@
         overflow: unset;
     }
 
-    .filter__category,
-    .filter__rating,
-    .filter__sort {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 0.5rem;
-        width: 100%;
+    .filter-body {
+        display: none;
+    }
+    .filter-body.show-filter {
+        display: block;
     }
 
-    .filter__category > h4,
-    .filter__rating > h4,
-    .filter__sort > h4 {
-        min-width: 20%;
-        font-size: 150%;
+    .filter__toggle {
+        display: block;
     }
 }
