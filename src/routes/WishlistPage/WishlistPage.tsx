@@ -1,6 +1,6 @@
-import classes from "./WishlistPage.module.css";
 import { Card } from "components/Card/Index";
 import { useCartWishlist } from "contexts/cart-wishlist-context";
+import { StyledWishlistPage } from "./styled-WhislistPage";
 
 export const WishlistPage = () => {
     const {
@@ -8,8 +8,8 @@ export const WishlistPage = () => {
     } = useCartWishlist();
 
     return (
-        <div className={classes["wishlist-content"]}>
-            <div className={classes["wishlist-card-container"]}>
+        <StyledWishlistPage.Content>
+            <StyledWishlistPage.CardContainer>
                 {wishlist.length === 0 && (
                     <h3 className="w-100p text-center">
                         {" "}
@@ -19,7 +19,7 @@ export const WishlistPage = () => {
                 {wishlist.map((item) => (
                     <Card key={item._id} productData={item} type="wishlist" />
                 ))}
-            </div>
-        </div>
+            </StyledWishlistPage.CardContainer>
+        </StyledWishlistPage.Content>
     );
 };

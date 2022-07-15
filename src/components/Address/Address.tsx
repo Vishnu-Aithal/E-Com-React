@@ -8,7 +8,7 @@ import { AddressWithoutId } from "routes/CheckoutPage/CheckoutPage";
 import { AddressType } from "types/Address";
 import { clearCart } from "utility-functions/CartAndWishlistHandlers/clearCart";
 import { addOrder } from "utility-functions/UserHandlers";
-import classes from "./Address.module.css";
+import { StyledAdress } from "./styled-Address";
 
 interface AddressProps {
     address: AddressType;
@@ -39,36 +39,37 @@ export const Address: React.FC<AddressProps> = ({
     } = useAuth();
     const { hideLoader, showLoader } = useLoader();
     const { showToast } = useToast();
+    const placeOrder = async () => {
+        const error = await addOrder(
+            {
+                address,
+                total: TotalPrice.toString(),
+                products: cart,
+            },
+            userDispatch,
+            token!,
+            showLoader,
+            hideLoader
+        );
+        if (error) {
+            showToast({
+                title: "Could not place order try after sometime",
+                type: "error",
+            });
+        } else {
+            showToast({
+                title: "Order Placed Successfully",
+                description: "Arriving in 2 Days",
+                type: "success",
+            });
+            await clearCart(token!, cartWishlistDispatch);
+            navigate("/orders");
+        }
+    };
     return (
-        <div
-            onClick={async () => {
-                const error = await addOrder(
-                    {
-                        address,
-                        total: TotalPrice.toString(),
-                        products: cart,
-                    },
-                    userDispatch,
-                    token!,
-                    showLoader,
-                    hideLoader
-                );
-                if (error) {
-                    showToast({
-                        title: "Could not place order try after sometime",
-                        type: "error",
-                    });
-                } else {
-                    showToast({
-                        title: "Order Placed Successfully",
-                        description: "Arriving in 2 Days",
-                        type: "success",
-                    });
-                    await clearCart(token!, cartWishlistDispatch);
-                    navigate("/orders");
-                }
-            }}
-            className={`${classes["address"]} p-4 text-center shadow-sm-hover w-100p`}>
+        <StyledAdress
+            onClick={placeOrder}
+            className="p-4 text-center shadow-sm-hover w-100p">
             <h4>{address.name}</h4>
             <p>{address.street}</p>
             <p>{`${address.city} - ${address.pincode}`}</p>
@@ -82,6 +83,6 @@ export const Address: React.FC<AddressProps> = ({
                 className="btn bg-light-gray br-2 py-1 ms-auto">
                 Edit
             </button>
-        </div>
+        </StyledAdress>
     );
 };

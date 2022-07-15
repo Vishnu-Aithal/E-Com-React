@@ -1,9 +1,9 @@
 import { SignInForm } from "components/AuthComponents/SignInForm";
-import classes from "./AuthPage.module.css";
+import { StyledAuthContent } from "./styled-AuthPage";
 export const SignInPage: React.FC = () => {
     return (
-        <div className={classes["auth-content"]}>
+        <StyledAuthContent>
             <SignInForm />
-        </div>
+        </StyledAuthContent>
     );
 };

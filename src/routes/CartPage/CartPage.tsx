@@ -1,14 +1,14 @@
-import classes from "./CartPage.module.css";
 import { Card } from "components/Card/Index";
 import { CartInfo } from "components/CartInfo/CartInfo";
 import { useCartWishlist } from "contexts/cart-wishlist-context";
+import { StyledCart } from "./styled-CartPage";
 export const CartPage: React.FC = () => {
     const {
         cartWishlistState: { cart },
     } = useCartWishlist();
     return (
-        <div className={classes["cart-content"]}>
-            <div className={`${classes["cart-card-container"]} m-3`}>
+        <StyledCart.Content>
+            <StyledCart.CardContainer className="m-3">
                 {cart.length === 0 && (
                     <h3 className="w-100p text-center">
                         Add Items to Cart to view it Here
@@ -23,8 +23,8 @@ export const CartPage: React.FC = () => {
                         hz
                     />
                 ))}
-            </div>
+            </StyledCart.CardContainer>
             {cart.length !== 0 && <CartInfo cart={cart} />}
-        </div>
+        </StyledCart.Content>
     );
 };

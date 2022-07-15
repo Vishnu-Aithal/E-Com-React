@@ -1,7 +1,7 @@
 import { useFilter } from "contexts/filter-context";
 import { useEffect, useState } from "react";
 import { Product } from "types/Product";
-import classes from "./FilterOptions.module.css";
+import { StyledFilter } from "./styled-FilterOptions";
 
 export const FilterOptions: React.FC = () => {
     const [showFilter, setShowFilter] = useState(false);
@@ -36,31 +36,28 @@ export const FilterOptions: React.FC = () => {
         };
     }, [dispatch]);
     return (
-        <aside className={classes["filter"]}>
-            <div
-                className={`${classes["filter__header"]}  m-2`}
+        <StyledFilter.Container>
+            <StyledFilter.Header
+                className="m-2"
                 onClick={() => setShowFilter((prev) => !prev)}>
                 <h4 className="heading-xs text-bold">Filters</h4>
-                <button className={`btn ${classes["filter__toggle"]}`}>
+
+                <StyledFilter.Toggle className="btn">
                     {showFilter ? "Hide" : "Show"}
-                </button>
-                <p
-                    className={classes["filter__clear"]}
+                </StyledFilter.Toggle>
+
+                <StyledFilter.Clear
                     onClick={(e) => {
                         e.stopPropagation();
                         dispatch({ type: "CLEAR_FILTERS" });
                     }}>
                     Clear
-                </p>
-            </div>
-            <div
-                className={`${classes["filter-body"]} ${
-                    showFilter ? classes["show-filter"] : ""
-                }`}>
-                <div className={`${classes["filter__price"]} m-2`}>
+                </StyledFilter.Clear>
+            </StyledFilter.Header>
+            <StyledFilter.Body showFilter={showFilter}>
+                <div className="m-2">
                     <h4 className="heading-xs text-bold">Price</h4>
-                    <input
-                        className={classes["filter__price-slider"]}
+                    <StyledFilter.PriceSlider
                         type="range"
                         min={minPrice}
                         max={maxPrice}
@@ -73,9 +70,7 @@ export const FilterOptions: React.FC = () => {
                             })
                         }
                     />
-                    <datalist
-                        id="price-steps"
-                        className={classes["price-steps"]}>
+                    <StyledFilter.PriceSteps id="price-steps">
                         <option
                             value={minPrice}
                             label={minPrice.toString()}></option>
@@ -85,9 +80,9 @@ export const FilterOptions: React.FC = () => {
                         <option
                             value={maxPrice}
                             label={maxPrice.toString()}></option>
-                    </datalist>
+                    </StyledFilter.PriceSteps>
                 </div>
-                <div className={`${classes["filter__category"]} m-2`}>
+                <StyledFilter.Grouper className="m-2">
                     <h4 className="heading-xs text-bold">Category</h4>
                     {categories.map((category) => (
                         <label key={category}>
@@ -104,8 +99,8 @@ export const FilterOptions: React.FC = () => {
                             {category}
                         </label>
                     ))}
-                </div>
-                <div className={`${classes["filter__category"]} m-2`}>
+                </StyledFilter.Grouper>
+                <StyledFilter.Grouper className="m-2">
                     <h4 className="heading-xs text-bold">Brand</h4>
                     {brands.map((brand) => (
                         <label key={brand}>
@@ -122,8 +117,8 @@ export const FilterOptions: React.FC = () => {
                             {brand}
                         </label>
                     ))}
-                </div>
-                <div className={`${classes["filter__category"]} m-2`}>
+                </StyledFilter.Grouper>
+                <StyledFilter.Grouper className="m-2">
                     <h4 className="heading-xs text-bold">Type</h4>
                     {types.map((type) => (
                         <label key={type}>
@@ -140,8 +135,8 @@ export const FilterOptions: React.FC = () => {
                             {type}
                         </label>
                     ))}
-                </div>
-                <div className={`${classes["filter__rating"]} m-2`}>
+                </StyledFilter.Grouper>
+                <StyledFilter.Grouper className="m-2">
                     <h4 className="heading-xs text-bold">Rating</h4>
                     {ratings.map((rating) => (
                         <label key={rating}>
@@ -159,8 +154,8 @@ export const FilterOptions: React.FC = () => {
                             {rating} Stars & Above
                         </label>
                     ))}
-                </div>
-                <div className={`${classes["filter__sort"]} m-2`}>
+                </StyledFilter.Grouper>
+                <StyledFilter.Grouper className="m-2">
                     <h4 className="heading-xs text-bold">Sort By Price</h4>
                     <label>
                         <input
@@ -190,8 +185,8 @@ export const FilterOptions: React.FC = () => {
                         />{" "}
                         Price - High to Low
                     </label>
-                </div>
-                <div className={`${classes["filter__sort"]} m-2`}>
+                </StyledFilter.Grouper>
+                <StyledFilter.Grouper className="m-2">
                     <h4 className="heading-xs text-bold">Sort By Rating</h4>
                     <label>
                         <input
@@ -221,8 +216,8 @@ export const FilterOptions: React.FC = () => {
                         />{" "}
                         Rating - High to Low
                     </label>
-                </div>
-                <div className={`${classes["filter__category"]} m-2`}>
+                </StyledFilter.Grouper>
+                <StyledFilter.Grouper className="m-2">
                     <h4 className="heading-xs text-bold">Other</h4>
                     <label>
                         <input
@@ -236,8 +231,8 @@ export const FilterOptions: React.FC = () => {
                         />{" "}
                         Show Out Of Stock
                     </label>
-                </div>
-            </div>
-        </aside>
+                </StyledFilter.Grouper>
+            </StyledFilter.Body>
+        </StyledFilter.Container>
     );
 };

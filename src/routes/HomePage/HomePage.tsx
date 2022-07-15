@@ -1,4 +1,3 @@
-import classes from "./HomePage.module.css";
 import { Hero } from "components/Layout/Hero";
 import { HighlightCategory } from "components/HighlightCategory/HighlightCategory";
 import heroImage from "assets/images/wardrobe.webp";
@@ -6,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { Category } from "types/Category";
+import { StyledHomePage } from "./styled-HomePage";
 
 export const HomePage: React.FC = () => {
     const [categories, setCategories] = useState<Category[]>([]);
@@ -20,16 +20,16 @@ export const HomePage: React.FC = () => {
         })();
     }, []);
     return (
-        <div className={classes["homepage-content"]}>
+        <StyledHomePage.Content>
             <Hero backgroundImage={heroImage} />
-            <div className={classes["highlight"]}>
+            <StyledHomePage.Highlight>
                 {categories.map((category) => (
                     <HighlightCategory
                         key={category._id}
                         categoryData={category}
                     />
                 ))}
-            </div>
-        </div>
+            </StyledHomePage.Highlight>
+        </StyledHomePage.Content>
     );
 };

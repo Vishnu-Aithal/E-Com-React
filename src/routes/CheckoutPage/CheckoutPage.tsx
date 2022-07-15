@@ -1,9 +1,9 @@
 import { AddressEditor } from "components/Address/AddressEditor";
 import { Address } from "components/Address/Address";
 import { useUser } from "contexts/user-context";
-import classes from "./CheckoutPage.module.css";
 import { useState } from "react";
 import { AddressType } from "types/Address";
+import { StyledCheckout } from "./styled-CheckoutPage";
 
 export type AddressWithoutId = Omit<AddressType, "_id">;
 
@@ -26,8 +26,8 @@ export const CheckoutPage: React.FC = () => {
         userState: { addresses },
     } = useUser();
     return (
-        <div className={classes["checkout-container"]}>
-            <div className={classes["checkout-address-container"]}>
+        <StyledCheckout.Container>
+            <StyledCheckout.AddressContainer>
                 <h2>Select an Address for Delivery</h2>
                 {addresses.length === 0 && (
                     <h4>No Address! Add New Address to select</h4>
@@ -48,7 +48,7 @@ export const CheckoutPage: React.FC = () => {
                     className="btn btn--secondary br-2">
                     Add Addres
                 </button>
-            </div>
+            </StyledCheckout.AddressContainer>
 
             {editorMode !== "close" && (
                 <AddressEditor
@@ -58,6 +58,6 @@ export const CheckoutPage: React.FC = () => {
                     setMode={setEditorMode}
                 />
             )}
-        </div>
+        </StyledCheckout.Container>
     );
 };

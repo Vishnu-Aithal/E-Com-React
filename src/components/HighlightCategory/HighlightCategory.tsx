@@ -1,20 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import { Category } from "types/Category";
-import classes from "./HighlightCategory.module.css";
+import { StyledHighlight } from "./styled-HighlightCategory";
 export const HighlightCategory: React.FC<{ categoryData: Category }> = ({
     categoryData,
 }) => {
     const navigate = useNavigate();
     return (
-        <div className={`${classes["highlight__item"]} p-2 shadow-sm`}>
-            <div className={classes["highlight__image-wrapper"]}>
+        <StyledHighlight.Item className="p-2 shadow-sm">
+            <StyledHighlight.ImageWrapper>
                 <img
                     className="img-responsive"
                     src={categoryData.image}
                     alt="formal-set"
                 />
-            </div>
-            <div className={`${classes["highlight__item-text"]} p-5`}>
+            </StyledHighlight.ImageWrapper>
+            <StyledHighlight.ItemText className="p-5">
                 <h3 className="heading-sm mt-4 clr-primary">
                     {categoryData.highlight}
                 </h3>
@@ -29,7 +29,7 @@ export const HighlightCategory: React.FC<{ categoryData: Category }> = ({
                     className="mt-3 btn btn--link btn--secondary text-center">
                     Browse Now
                 </button>
-            </div>
-        </div>
+            </StyledHighlight.ItemText>
+        </StyledHighlight.Item>
     );
 };
