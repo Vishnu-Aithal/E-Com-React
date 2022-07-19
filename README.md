@@ -1,9 +1,10 @@
 # E-Com-React
----
-![Site Video](https://github.com/Vishnu-Aithal/E-Com-React/blob/dev/src/assets/images/E-Com-React.gif)
+
 ---
 
-Live Link - https://e-com-react-git-dev-vishnu-aithal.vercel.app/
+## ![Site Video](https://github.com/Vishnu-Aithal/E-Com-React/blob/dev/src/assets/images/E-Com-React.gif)
+
+Live Link - https://e-com-react.vercel.app/
 
 ---
 
